@@ -2,17 +2,16 @@
 
 Contributors: joychetry
 Donate link: https://www.buymeacoffee.com/joychetry/
-Plugin Name: Infinite Scroll Elementor
-Description: Infinite Scroll Elementor pulls the next posts automatically when the reader approaches the bottom of the page.
 Tags: infinite scroll, load more, pagination, paginate, scroll, infinite, infinity, ajax, posts, products, elementor, woocommerce, facetwp, jetsmartfilters
 Requires at least: 5.0
 Tested up to: 5.5.1
 Requires PHP: 5.6
-Stable tag: 2.1
+Stable tag: 2.1.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 == Description ==
+
 Infinite Scroll Elementor pulls the next posts automatically when the reader approaches the bottom of the page. Plugin supports Elementor Posts, Elementor Archive, WooCommerce Products, WooCommerce Products Archive and also has support for Custom Selectors.
 
 ## Quick Links
@@ -53,7 +52,9 @@ You canPlease create a support request in the official [support forum](https://w
 
 == Changelog ==
 
-= 2.1 =
+= 2.1.1 - 2020-09-06 =
+* Tweak: Grammar slam.
+
 = 2.1 - 2020-09-05 =
 * Tweak: Added new Infinite Scroll JavaScript
 * Tweak: Added compatibility with Wordpress 5.5
