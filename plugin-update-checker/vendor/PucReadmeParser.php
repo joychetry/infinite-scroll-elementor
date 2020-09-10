@@ -46,7 +46,7 @@ class PucReadmeParser {
 			$requires_at_least = NULL;
 
 
-		// Tested up to: 2.1.0
+		// Tested up to: 2.1
 		if ( preg_match('|Tested up to:(.*)|i', $file_contents, $_tested_up_to) )
 			$tested_up_to = $this->sanitize_text( $_tested_up_to[1] );
 		else
