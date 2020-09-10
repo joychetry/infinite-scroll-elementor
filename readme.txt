@@ -6,7 +6,7 @@ Tags: infinite scroll, load more, pagination, paginate, scroll, infinite, infini
 Requires at least: 5.0
 Tested up to: 5.5.1
 Requires PHP: 5.6
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -51,6 +51,10 @@ Infinite Scroll Elementor does not add any CSS to your website. It only adds few
 You canPlease create a support request in the official [support forum](https://wordpress.org/support/plugin/infinite-scroll-elementor). You can also get help from my website by [commenting in this post](https://joychetry.com/infinite-scroll-elementor/).
 
 == Changelog ==
+
+= 2.1.2 - 2020-09-10 =
+* Tweak: General Fixes.
+* Tweak: Added Loading animation to Elementor Products widget infinite scroll.
 
 = 2.1.1 - 2020-09-06 =
 * Tweak: Grammar slam.

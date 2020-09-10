@@ -4,7 +4,7 @@
 **Requires at least:** 5.0\
 **Tested up to:** 5.5.1\
 **Requires PHP:** 5.6\
-**Stable tag:** 2.1.1\
+**Stable tag:** 2.1.2\
 **License:** GPLv3\
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,9 +21,8 @@ Infinite Scroll Elementor pulls the next posts automatically when the reader app
 ### Pagination applicable to ###
 
 1. Elementor Posts
-2. Elementor Products
-3. Elementor Posts Archive
-4. Elementor Products Archive
+2. Elementor Posts Archive
+3. Elementor WooCommerce Products
 5. Add Custom Selectors
 
 ### Options ###
@@ -36,6 +35,10 @@ For tutorial check [documentation](https://joychetry.com/infinite-scroll-element
 
 ## Changelog ##
 
+
+### 2.1.2 - 2020-09-10 ###
+* Tweak: General Fixes.
+* Tweak: Added Loading animation to Elementor Products widget infinite scroll.
 
 ### 2.1.1 - 2020-09-06 ###
 * Tweak: Grammar slam.

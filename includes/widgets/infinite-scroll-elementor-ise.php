@@ -63,7 +63,6 @@ class ISE_InfiniteScroll extends Widget_Base {
 				'elementor-pro-posts'            => __( 'Elementor Posts', 'infinite-scroll-elementor-td' ),
 				'elementor-pro-products'         => __( 'Elementor Products', 'infinite-scroll-elementor-td' ),					
 				'elementor-pro-archive-posts'    => __( 'Elementor Archive Posts', 'infinite-scroll-elementor-td' ),
-				'elementor-pro-archive-products' => __( 'Elementor Archive Products', 'infinite-scroll-elementor-td' ),
 				'use-custom-selectors'           => __( 'Add Custom Selectors', 'infinite-scroll-elementor-td' ),
 			],
 			'condition' => [
@@ -270,110 +269,7 @@ class ISE_InfiniteScroll extends Widget_Base {
 			}
 			
 		}
-		
-		// Elementor Archive Products
-		elseif( $settings['pagination_for_setting'] == 'elementor-pro-archive-products' ) {
-			
-			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-				echo "<strong>Infinite Scroll Elementor: </strong>Executed fine, please check preview or page for results.";
-			}
-			else {
-			?>
-			<style>
-				.page-load-status {
-				 display:none; /* hidden by default */
-				  text-align: center;
-				  color: #000428;
-				}
 
-				.loader-ellips {
-				  font-size: 12px; /* change size here */
-				  position: relative;
-				  width: 4em;
-				  height: 1em;
-				  margin: 10px auto;
-				}
-
-				.loader-ellips__dot {
-				  display: block;
-				  width: 1em;
-				  height: 1em;
-				  border-radius: 0.5em;
-				  background: #a1a1a1; /* change color here */
-				  position: absolute;
-				  animation-duration: 0.5s;
-				  animation-timing-function: ease;
-				  animation-iteration-count: infinite;
-				}
-
-				.loader-ellips__dot:nth-child(1),
-				.loader-ellips__dot:nth-child(2) {
-				  left: 0;
-				}
-				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
-				.loader-ellips__dot:nth-child(4) { left: 3em; }
-
-				@keyframes reveal {
-				  from { transform: scale(0.001); }
-				  to { transform: scale(1); }
-				}
-
-				@keyframes slide {
-				  to { transform: translateX(1.5em) }
-				}
-
-				.loader-ellips__dot:nth-child(1) {
-				  animation-name: reveal;
-				}
-
-				.loader-ellips__dot:nth-child(2),
-				.loader-ellips__dot:nth-child(3) {
-				  animation-name: slide;
-				}
-
-				.loader-ellips__dot:nth-child(4) {
-				  animation-name: reveal;
-				  animation-direction: reverse;
-				}
-				.vmBtn {
-				  text-align:center;
-				  margin-top:0px;
-				}
-				.view-more-button{
-				  background-color:#a1a1a1;
-				  border-style:none;
-				  color:#fff;
-				  font-size:18px;
-				  padding:8px 16px;
-				  border-radius:3px;
-				  cursor: pointer;
-				}
-			</style>
-			<div class="page-load-status">
-			  <div class="loader-ellips infinite-scroll-request">
-				<span class="loader-ellips__dot"></span>
-				<span class="loader-ellips__dot"></span>
-				<span class="loader-ellips__dot"></span>
-				<span class="loader-ellips__dot"></span>
-			  </div>
-			  <p class="infinite-scroll-last">You have made it till the end!</p>
-			  <p class="infinite-scroll-error">No more posts left!</p>
-			</div>
-			<script type="text/javascript">
-jQuery(document).ready(function($) {
-    $('ul.products').infiniteScroll({
-        path: 'a.page-numbers.next',
-        append: 'li.product',
-        history: false,
-        hideNav: 'nav.woocommerce-pagination',
-    });
-
-});
-</script>
-<?php
-			}
-			
-		}
 		// Elementor Products
 		elseif( $settings['pagination_for_setting'] == 'elementor-pro-products' ) {
 			
@@ -469,6 +365,7 @@ jQuery(document).ready(function($) {
         path: 'a.page-numbers.next',
         hideNav: 'nav.woocommerce-pagination',
         history: false,
+		status: '.page-load-status',
     });
 
 });
@@ -578,6 +475,7 @@ jQuery(document).ready(function($) {
         path: '<?php echo $path_custom ?>',
         hideNav: '<?php echo $hideNav_custom ?>',
         history: false,
+		status: '.page-load-status',
     });
 });
 </script>
