@@ -64,7 +64,7 @@ class ISE_ButtonLoad extends Widget_Base
     
         /* Pagination Type */
         $this->add_control(
-            'ISE_register',
+            'ISEButton_register',
             [
             'label'       => __('Button Load', 'infinite-scroll-elementor-td'),
             'type'         => \Elementor\Controls_Manager::SWITCHER,
@@ -84,14 +84,14 @@ class ISE_ButtonLoad extends Widget_Base
                 'default' 		=> __('More Posts', 'infinite-scroll-elementor-td'),
                 'placeholder' 	=> __('More Posts', 'infinite-scroll-elementor-td'),
                 'condition' => [
-                    'ISE_register' => 'yes',
+                    'ISEButton_register' => 'yes',
                  ],
             ]
         );
         
         /* Pagination For */
         $this->add_control(
-            'pagination_for_setting',
+            'button_pagination_for_setting',
             [
             'label'       => __('Pagination For', 'infinite-scroll-elementor-td'),
             'type'        => \Elementor\Controls_Manager::SELECT,
@@ -104,7 +104,7 @@ class ISE_ButtonLoad extends Widget_Base
                 'ise-custom-selectors'           => __('Add Custom Selectors', 'infinite-scroll-elementor-td'),
             ],
             'condition' => [
-                'ISE_register' => 'yes',
+                'ISEButton_register' => 'yes',
             ]
         ]
         );
@@ -118,7 +118,7 @@ class ISE_ButtonLoad extends Widget_Base
                 'label_on'     => __('yes', 'infinite-scroll'),
                 'label_off'    => __('no', 'infinite-scroll'),
                 'condition' 	=> [
-                    'ISE_register' => 'yes',
+                    'ISEButton_register' => 'yes',
                 ],
             ]
         );
@@ -134,7 +134,7 @@ class ISE_ButtonLoad extends Widget_Base
                     'text' 		=> __('Text', 'infinite-scroll-elementor-td'),
                 ],
                 'condition' => [
-                    'ISE_register' => 'yes',
+                    'ISEButton_register' => 'yes',
                     'button_load_elementor_animation' => 'yes',
                 ],
             ]
@@ -148,7 +148,7 @@ class ISE_ButtonLoad extends Widget_Base
                 'default' 		=> __('Loading...', 'infinite-scroll-elementor-td'),
                 'placeholder' 	=> __('Loading...', 'infinite-scroll-elementor-td'),
                 'condition' => [
-                    'ISE_register' => 'yes',
+                    'ISEButton_register' => 'yes',
                     'button_load_elementor_animation' => 'yes',
                     'button_load_elementor_loading_type' => 'text',
                 ],
@@ -163,7 +163,7 @@ class ISE_ButtonLoad extends Widget_Base
                 'default' 		=> __('You have made it till the end!', 'infinite-scroll-elementor-td'),
                 'placeholder' 	=> __('You have made it till the end!', 'infinite-scroll-elementor-td'),
                 'condition' => [
-                    'ISE_register' => 'yes',
+                    'ISEButton_register' => 'yes',
                     'button_load_elementor_animation' => 'yes',
                 ],
             ]
@@ -178,7 +178,7 @@ class ISE_ButtonLoad extends Widget_Base
                 'placeholder' 	=> __('No post here!', 'infinite-scroll-elementor-td'),
                 'separator'		=> 'after',
                 'condition' => [
-                    'ISE_register' => 'yes',
+                    'ISEButton_register' => 'yes',
                     'button_load_elementor_animation' => 'yes',
                 ],
             ]
@@ -199,64 +199,64 @@ class ISE_ButtonLoad extends Widget_Base
     
         /* Custom Selectors */
         $this->start_controls_section(
-            'custom_selectors_section',
+            'custom_button_selectors_section',
             [
             'label' => __('Custom Selectors', 'infinite-scroll-elementor-td'),
             'condition' => [
-                'pagination_for_setting' => 'ise-custom-selectors',
+                'button_pagination_for_setting' => 'ise-custom-selectors',
             ]
         ]
         );
     
         /* Navigation Selector */
         $this->add_control(
-            'custom_selector_navigation_setting',
+            'custom_button_selector_navigation_setting',
             [
             'label'       => __('Navigation Selector', 'infinite-scroll-elementor-td'),
             'label_block' => true,
             'placeholder' => __('E.g. nav.navigation', 'infinite-scroll-elementor-td'),
             'type'        => \Elementor\Controls_Manager::TEXT,
             'condition' => [
-                'pagination_for_setting' => 'ise-custom-selectors',
+                'button_pagination_for_setting' => 'ise-custom-selectors',
             ]
         ]
         );
     
         $this->add_control(
-            'custom_selector_next_setting',
+            'custom_button_selector_next_setting',
             [
             'label'       => __('Next Selector', 'infinite-scroll-elementor-td'),
             'label_block' => true,
             'placeholder' => __('E.g. a.next', 'infinite-scroll-elementor-td'),
             'type'        => \Elementor\Controls_Manager::TEXT,
             'condition' => [
-                'pagination_for_setting' => 'ise-custom-selectors',
+                'button_pagination_for_setting' => 'ise-custom-selectors',
             ]
         ]
         );
     
         $this->add_control(
-            'custom_selector_content_setting',
+            'custom_button_selector_content_setting',
             [
             'label'       => __('Content Selector', 'infinite-scroll-elementor-td'),
             'label_block' => true,
             'placeholder' => __('E.g. div.items', 'infinite-scroll-elementor-td'),
             'type'        => \Elementor\Controls_Manager::TEXT,
             'condition' => [
-                'pagination_for_setting' => 'ise-custom-selectors',
+                'button_pagination_for_setting' => 'ise-custom-selectors',
             ]
         ]
         );
     
         $this->add_control(
-            'custom_selector_item_setting',
+            'custom_button_selector_item_setting',
             [
             'label'       => __('Item Selector', 'infinite-scroll-elementor-td'),
             'label_block' => true,
             'placeholder' => __('E.g. div.item', 'infinite-scroll-elementor-td'),
             'type'        => \Elementor\Controls_Manager::TEXT,
             'condition' => [
-                'pagination_for_setting' => 'ise-custom-selectors',
+                'button_pagination_for_setting' => 'ise-custom-selectors',
             ]
         ]
         );
@@ -273,7 +273,7 @@ class ISE_ButtonLoad extends Widget_Base
 
         $buttonText = $settings['button_load_elementor_button_text'];
 
-        function ISEcolor()
+        function ISEButtoncolor()
         {
             ?>
 			<style>
@@ -329,22 +329,17 @@ class ISE_ButtonLoad extends Widget_Base
 				  animation-name: reveal;
 				  animation-direction: reverse;
 				}
-
-				.view-more-button{
-				  color:#fff;
-				  padding:8px 16px;
-				  border-radius:3px;
-				}                
+               
 			</style>			
 			<?php
         }
 
 
         // Elementor Posts
-        if ($settings['pagination_for_setting'] == 'elementor-pro-posts') {
+        if ($settings['button_pagination_for_setting'] == 'elementor-pro-posts') {
             if ($settings['button_load_elementor_loading_type'] == 'animation') {
                 ?>
-				<?php ISEcolor() ?>
+				<?php ISEButtoncolor() ?>
 			<div class="page-load-status">
 			  <div class="loader-ellips infinite-scroll-request">
 				<span class="loader-ellips__dot"></span>
@@ -357,7 +352,7 @@ class ISE_ButtonLoad extends Widget_Base
 			</div>
             <?php
             } else { ?>     
-                <?php ISEcolor() ?>           
+                <?php ISEButtoncolor() ?>           
                 <div class="page-load-status">
                     <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
 			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
@@ -385,10 +380,10 @@ class ISE_ButtonLoad extends Widget_Base
 
         
         // Elementor Archive Posts
-        if ($settings['pagination_for_setting'] == 'elementor-pro-archive-posts') {
+        if ($settings['button_pagination_for_setting'] == 'elementor-pro-archive-posts') {
             if ($settings['button_load_elementor_loading_type'] == 'animation') {
                 ?>
-                    <?php ISEcolor() ?>
+                    <?php ISEButtoncolor() ?>
                 <div class="page-load-status">
                   <div class="loader-ellips infinite-scroll-request">
                     <span class="loader-ellips__dot"></span>
@@ -401,7 +396,7 @@ class ISE_ButtonLoad extends Widget_Base
                 </div>
                 <?php
             } else { ?>     
-                <?php ISEcolor() ?>           
+                <?php ISEButtoncolor() ?>           
                 <div class="page-load-status">
                     <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
 			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
@@ -428,10 +423,10 @@ class ISE_ButtonLoad extends Widget_Base
         }
 
         // Elementor Products
-        elseif ($settings['pagination_for_setting'] == 'elementor-pro-products') {
+        elseif ($settings['button_pagination_for_setting'] == 'elementor-pro-products') {
             if ($settings['button_load_elementor_loading_type'] == 'animation') {
                 ?>
-				<?php ISEcolor() ?>
+				<?php ISEButtoncolor() ?>
 			<div class="page-load-status">
 			  <div class="loader-ellips infinite-scroll-request">
 				<span class="loader-ellips__dot"></span>
@@ -444,7 +439,7 @@ class ISE_ButtonLoad extends Widget_Base
 			</div>
             <?php
             } else { ?>     
-                <?php ISEcolor() ?>           
+                <?php ISEButtoncolor() ?>           
                 <div class="page-load-status">
                     <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
 			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
@@ -471,15 +466,15 @@ class ISE_ButtonLoad extends Widget_Base
         }
 
         // Custom selectors
-        elseif ($settings['pagination_for_setting'] == 'ise-custom-selectors') {
-            $hideNav_custom = $settings['custom_selector_navigation_setting'];
-            $path_custom = $settings['custom_selector_next_setting'];
-            $content_custom = $settings['custom_selector_content_setting'];
-            $append_custom = $settings['custom_selector_item_setting'];
+        elseif ($settings['button_pagination_for_setting'] == 'ise-custom-selectors') {
+            $hideNav_custom = $settings['custom_button_selector_navigation_setting'];
+            $path_custom = $settings['custom_button_selector_next_setting'];
+            $content_custom = $settings['custom_button_selector_content_setting'];
+            $append_custom = $settings['custom_button_selector_item_setting'];
             
             if ($settings['button_load_elementor_loading_type'] == 'animation') {
                 ?>
-				<?php ISEcolor() ?>
+				<?php ISEButtoncolor() ?>
 			<div class="page-load-status">
 			  <div class="loader-ellips infinite-scroll-request">
 				<span class="loader-ellips__dot"></span>
@@ -492,7 +487,7 @@ class ISE_ButtonLoad extends Widget_Base
 			</div>
             <?php
             } else { ?>     
-                <?php ISEcolor() ?>           
+                <?php ISEButtoncolor() ?>           
                 <div class="page-load-status">
                     <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
 			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
@@ -659,6 +654,10 @@ class ISE_ButtonLoad extends Widget_Base
             [
                                 'label' 	=> __('Color', 'infinite-scroll-elementor-td'),
                                 'type' 		=> Controls_Manager::COLOR,
+                                'scheme' => [
+                                    'type' => \Elementor\Scheme_Color::get_type(),
+                                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                                ],
                                 'selectors' => [
                                     '{{WRAPPER}} .view-more-button' => 'color: {{VALUE}};',
                                 ],
@@ -670,6 +669,10 @@ class ISE_ButtonLoad extends Widget_Base
             [
                                 'label' 	=> __('Background Color', 'infinite-scroll-elementor-td'),
                                 'type' 		=> Controls_Manager::COLOR,
+                                'scheme' => [
+                                    'type' => \Elementor\Scheme_Color::get_type(),
+                                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                                ],
                                 'selectors' => [
                                     '{{WRAPPER}} .view-more-button' => 'background-color: {{VALUE}};',
                                 ],
@@ -687,6 +690,10 @@ class ISE_ButtonLoad extends Widget_Base
             [
                                 'label' 	=> __('Color', 'infinite-scroll-elementor-td'),
                                 'type' 		=> Controls_Manager::COLOR,
+                                'scheme' => [
+                                    'type' => \Elementor\Scheme_Color::get_type(),
+                                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                                ],
                                 'selectors' => [
                                     '{{WRAPPER}} .view-more-button:hover' => 'color: {{VALUE}};',
                                 ],
@@ -698,6 +705,10 @@ class ISE_ButtonLoad extends Widget_Base
             [
                                 'label' 	=> __('Background Color', 'infinite-scroll-elementor-td'),
                                 'type' 		=> Controls_Manager::COLOR,
+                                'scheme' => [
+                                    'type' => \Elementor\Scheme_Color::get_type(),
+                                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                                ],
                                 'selectors' => [
                                     '{{WRAPPER}} .view-more-button:hover' => 'background-color: {{VALUE}};',
                                 ],
@@ -793,6 +804,10 @@ class ISE_ButtonLoad extends Widget_Base
             [
                             'label' 	=> __('Animation Color', 'infinite-scroll-elementor-td'),
                             'type' 		=> Controls_Manager::COLOR,
+                            'scheme' => [
+                                'type' => \Elementor\Scheme_Color::get_type(),
+                                'value' => \Elementor\Scheme_Color::COLOR_1,
+                            ],
                             'default' => '#a1a1a1',
                             'selectors' => [
                                 '{{WRAPPER}} .loader-ellips__dot' => 'background: {{VALUE}};',

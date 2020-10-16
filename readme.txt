@@ -50,6 +50,10 @@ You can also get help from my website by [commenting in this post](https://joych
 
 == Changelog ==
 
+= 2.2.1 - 2020-10-16 =
+* Fix: Fatal error after adding both Infinite Scroll Elementor and Button Load Elementor in the same page ([#1](https://github.com/joychetry/infinite-scroll-elementor/issues/1))
+* Fix: Fatal error after setting animation color to global color.
+
 = 2.2.0 - 2020-09-26 =
 * New: Button Load Elementor - ISE.
 * New: Style Tab.

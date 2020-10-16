@@ -311,12 +311,7 @@ class ISE_InfiniteScroll extends Widget_Base
 				  animation-name: reveal;
 				  animation-direction: reverse;
 				}
-
-				.view-more-button{
-				  color:#fff;
-				  padding:8px 16px;
-				  border-radius:3px;
-				}                
+                             
 			</style>			
 			<?php
         }
@@ -592,6 +587,10 @@ class ISE_InfiniteScroll extends Widget_Base
             [
                             'label' 	=> __('Animation Color', 'infinite-scroll-elementor-td'),
                             'type' 		=> Controls_Manager::COLOR,
+                            'scheme' => [
+                            'type' => \Elementor\Scheme_Color::get_type(),
+                            'value' => \Elementor\Scheme_Color::COLOR_1,
+                            ],
                             'default' => '#a1a1a1',
                             'selectors' => [
                                 '{{WRAPPER}} .loader-ellips__dot' => 'background: {{VALUE}};',
