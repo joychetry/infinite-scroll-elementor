@@ -6,7 +6,7 @@ Tags: infinite scroll, load more, pagination, paginate, scroll, infinite, infini
 Requires at least: 5.0
 Tested up to: 5.5.1
 Requires PHP: 5.6
-Stable tag: 2.2.0
+Stable tag: 2.2.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,9 @@ Infinite Scroll Elementor does not add any CSS to your website. It only adds few
 You can also get help from my website by [commenting in this post](https://joychetry.com/infinite-scroll-elementor/).
 
 == Changelog ==
+
+= 2.2.2 - 2020-10-20 =
+* Fix: Fatal error after adding both Infinite Scroll Elementor and Button Load Elementor two times in the same page ([#1](https://github.com/joychetry/infinite-scroll-elementor/issues/1#issuecomment-711065217))
 
 = 2.2.1 - 2020-10-16 =
 * Fix: Fatal error after adding both Infinite Scroll Elementor and Button Load Elementor in the same page ([#1](https://github.com/joychetry/infinite-scroll-elementor/issues/1))

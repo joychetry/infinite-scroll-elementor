@@ -273,10 +273,13 @@ class ISE_ButtonLoad extends Widget_Base
 
         $buttonText = $settings['button_load_elementor_button_text'];
 
-        function ISEButtoncolor()
-        {
-            ?>
-			<style>
+        /* Removed <?php ISEButtoncolor() ?> */
+
+        // Elementor Posts
+        if ($settings['button_pagination_for_setting'] == 'elementor-pro-posts') {
+            if ($settings['button_load_elementor_loading_type'] == 'animation') {
+                ?>
+				<style>
 				.page-load-status {
 				 display:none; /* hidden by default */
 				}
@@ -330,16 +333,7 @@ class ISE_ButtonLoad extends Widget_Base
 				  animation-direction: reverse;
 				}
                
-			</style>			
-			<?php
-        }
-
-
-        // Elementor Posts
-        if ($settings['button_pagination_for_setting'] == 'elementor-pro-posts') {
-            if ($settings['button_load_elementor_loading_type'] == 'animation') {
-                ?>
-				<?php ISEButtoncolor() ?>
+			</style>
 			<div class="page-load-status">
 			  <div class="loader-ellips infinite-scroll-request">
 				<span class="loader-ellips__dot"></span>
@@ -352,7 +346,61 @@ class ISE_ButtonLoad extends Widget_Base
 			</div>
             <?php
             } else { ?>     
-                <?php ISEButtoncolor() ?>           
+                <style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+                  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+               
+			</style>           
                 <div class="page-load-status">
                     <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
 			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
@@ -383,7 +431,61 @@ class ISE_ButtonLoad extends Widget_Base
         if ($settings['button_pagination_for_setting'] == 'elementor-pro-archive-posts') {
             if ($settings['button_load_elementor_loading_type'] == 'animation') {
                 ?>
-                    <?php ISEButtoncolor() ?>
+                    <style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+                  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+               
+			</style>
                 <div class="page-load-status">
                   <div class="loader-ellips infinite-scroll-request">
                     <span class="loader-ellips__dot"></span>
@@ -396,7 +498,61 @@ class ISE_ButtonLoad extends Widget_Base
                 </div>
                 <?php
             } else { ?>     
-                <?php ISEButtoncolor() ?>           
+                <style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+                  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+               
+			</style>           
                 <div class="page-load-status">
                     <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
 			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
@@ -426,7 +582,61 @@ class ISE_ButtonLoad extends Widget_Base
         elseif ($settings['button_pagination_for_setting'] == 'elementor-pro-products') {
             if ($settings['button_load_elementor_loading_type'] == 'animation') {
                 ?>
-				<?php ISEButtoncolor() ?>
+				<style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+                  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+               
+			</style>
 			<div class="page-load-status">
 			  <div class="loader-ellips infinite-scroll-request">
 				<span class="loader-ellips__dot"></span>
@@ -439,7 +649,61 @@ class ISE_ButtonLoad extends Widget_Base
 			</div>
             <?php
             } else { ?>     
-                <?php ISEButtoncolor() ?>           
+                <style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+                  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+               
+			</style>           
                 <div class="page-load-status">
                     <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
 			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
@@ -474,7 +738,61 @@ class ISE_ButtonLoad extends Widget_Base
             
             if ($settings['button_load_elementor_loading_type'] == 'animation') {
                 ?>
-				<?php ISEButtoncolor() ?>
+				<style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+                  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+               
+			</style>
 			<div class="page-load-status">
 			  <div class="loader-ellips infinite-scroll-request">
 				<span class="loader-ellips__dot"></span>
@@ -487,7 +805,61 @@ class ISE_ButtonLoad extends Widget_Base
 			</div>
             <?php
             } else { ?>     
-                <?php ISEButtoncolor() ?>           
+                <style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+                  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+               
+			</style>           
                 <div class="page-load-status">
                     <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
 			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>

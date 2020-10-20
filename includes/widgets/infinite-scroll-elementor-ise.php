@@ -255,10 +255,16 @@ class ISE_InfiniteScroll extends Widget_Base
         $errorText = $settings['infinite_scroll_elementor_error_text'];
         $loadingText = $settings['infinite_scroll_elementor_loading_text'];
         
-        function ISEcolor()
-        {
-            ?>
-			<style>
+        /* Removed <?php ISEcolor() ?> */
+
+        // Elementor Posts
+        if ($settings['pagination_for_setting'] == 'elementor-pro-posts') {
+            if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+                echo "<strong>Infinite Scroll Elementor for Elementor Posts: </strong>Executed fine, please check preview or page for results.";
+            } else {
+                if ($settings['infinite_scroll_elementor_loading_type'] == 'animation') {
+                    ?>
+				<style>
 				.page-load-status {
 				 display:none; /* hidden by default */
 				}
@@ -312,18 +318,7 @@ class ISE_InfiniteScroll extends Widget_Base
 				  animation-direction: reverse;
 				}
                              
-			</style>			
-			<?php
-        }
-
-        // Elementor Posts
-        if ($settings['pagination_for_setting'] == 'elementor-pro-posts') {
-            if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                echo "<strong>Infinite Scroll Elementor for Elementor Posts: </strong>Executed fine, please check preview or page for results.";
-            } else {
-                if ($settings['infinite_scroll_elementor_loading_type'] == 'animation') {
-                    ?>
-				<?php ISEcolor() ?>
+			</style>
 				
 			<div class="page-load-status">
 			  <div class="loader-ellips infinite-scroll-request">
@@ -338,7 +333,61 @@ class ISE_InfiniteScroll extends Widget_Base
 			
 			<?php
                 } else { ?>     
-                <?php ISEcolor() ?>           
+                <style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+				  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+                             
+			</style>           
                 <div class="page-load-status">
                     <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
 			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
@@ -370,7 +419,61 @@ class ISE_InfiniteScroll extends Widget_Base
             } else {
                 if ($settings['infinite_scroll_elementor_loading_type'] == 'animation') {
                     ?>
-				<?php ISEcolor() ?>
+				<style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+				  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+                             
+			</style>
 				
 			<div class="page-load-status">
 			  <div class="loader-ellips infinite-scroll-request">
@@ -385,7 +488,61 @@ class ISE_InfiniteScroll extends Widget_Base
 			
 			<?php
                 } else { ?>     
-                <?php ISEcolor() ?>           
+                <style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+				  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+                             
+			</style>           
                 <div class="page-load-status">
                     <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
 			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
@@ -415,7 +572,61 @@ class ISE_InfiniteScroll extends Widget_Base
             } else {
                 if ($settings['infinite_scroll_elementor_loading_type'] == 'animation') {
                     ?>
-				<?php ISEcolor() ?>
+				<style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+				  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+                             
+			</style>
 				
 			<div class="page-load-status">
 			  <div class="loader-ellips infinite-scroll-request">
@@ -430,7 +641,61 @@ class ISE_InfiniteScroll extends Widget_Base
 			
 			<?php
                 } else { ?>     
-                <?php ISEcolor() ?>           
+                <style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+				  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+                             
+			</style>           
                 <div class="page-load-status">
                     <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
 			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
@@ -465,7 +730,61 @@ class ISE_InfiniteScroll extends Widget_Base
             } else {
                 if ($settings['infinite_scroll_elementor_loading_type'] == 'animation') {
                     ?>
-				<?php ISEcolor() ?>
+				<style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+				  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+                             
+			</style>
 				
 			<div class="page-load-status">
 			  <div class="loader-ellips infinite-scroll-request">
@@ -480,7 +799,61 @@ class ISE_InfiniteScroll extends Widget_Base
 			
 			<?php
                 } else { ?>     
-                <?php ISEcolor() ?>           
+                <style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+				  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+                             
+			</style>           
                 <div class="page-load-status">
                     <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
 			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
