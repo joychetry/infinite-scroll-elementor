@@ -143,6 +143,7 @@ class ISE_InfiniteScroll extends Widget_Base
             'infinite_scroll_elementor_last_text',
             [
                 'label' 		=> __('Last Text', 'infinite-scroll-elementor-td'),
+				'separator' => 'before',
                 'type' 			=> Controls_Manager::TEXT,
                 'default' 		=> __('You have made it till the end!', 'infinite-scroll-elementor-td'),
                 'placeholder' 	=> __('You have made it till the end!', 'infinite-scroll-elementor-td'),
@@ -160,12 +161,27 @@ class ISE_InfiniteScroll extends Widget_Base
                 'type' 			=> Controls_Manager::TEXT,
                 'default' 		=> __('No post here!', 'infinite-scroll-elementor-td'),
                 'placeholder' 	=> __('No post here!', 'infinite-scroll-elementor-td'),
-                'separator'		=> 'after',
                 'condition' => [
                     'ISE_register' => 'yes',
                     'infinite_scroll_elementor_animation' => 'yes',
                 ],
             ]
+		);
+		
+		/* Image Ratio Fix */
+        $this->add_control(
+            'missing_featured_image_fix',
+            [
+            'label'        => __('Fix Image Ratio', 'infinite-scroll-elementor-td'),
+            'separator'    => 'before',
+            'type'         => \Elementor\Controls_Manager::SWITCHER,
+            'label_on'     => __('yes', 'infinite-scroll-elementor-td'),
+            'label_off'    => __('no', 'infinite-scroll-elementor-td'),
+            'description' => __('Only make it YES if you have modified Image Ratio to more or less than 0.66 in the Post Widget or if you are missing the featured image.', 'infinite-scroll-elementor-td'),
+            'condition' => [
+              'ISE_register' => 'yes',
+          ],
+        ]
         );
     
         /* Documentation Box */
@@ -173,6 +189,7 @@ class ISE_InfiniteScroll extends Widget_Base
             'documentation',
             [
                   'type'            => Controls_Manager::RAW_HTML,
+				  'separator' => 'before',
                   'raw'             => __('Infinite Scroll Elementor plugin adds advanced Ajax Load More and Infinite Scroll functions to Elementor.<br><a href="https://joychetry.com/infinite-scroll-elementor/" target="_blank">Check Documentation</a>', 'infinite-scroll-elementor-td'),
                   'content_classes' => 'elementor-control-raw-html elementor-panel-alert elementor-panel-alert-info',
               ]
@@ -253,7 +270,16 @@ class ISE_InfiniteScroll extends Widget_Base
         
         $lastText = $settings['infinite_scroll_elementor_last_text'];
         $errorText = $settings['infinite_scroll_elementor_error_text'];
-        $loadingText = $settings['infinite_scroll_elementor_loading_text'];
+		$loadingText = $settings['infinite_scroll_elementor_loading_text'];
+		
+		if ($settings['missing_featured_image_fix'] === 'yes') {
+            $ImgRatioFix = "$(window).scroll(function() {    
+            var scroll = $(window).scrollTop();
+            if (scroll >= 0) {
+              $('.elementor-post__thumbnail').addClass('elementor-fit-height');
+            }
+          });";
+        }
         
         /* Removed <?php ISEcolor() ?> */
 
@@ -396,7 +422,16 @@ class ISE_InfiniteScroll extends Widget_Base
             <?php } ?>
 			
 			<script type="text/javascript">
-			jQuery(document).ready(function($) {
+          function deferISE(method) {
+              if (window.jQuery) {
+                  method();
+              } else {
+                  setTimeout(function() { deferISE(method) }, 50);
+              }
+          }
+          deferISE(function() {            
+            jQuery(document).ready(function($) {
+              <?php echo $ImgRatioFix ?>
 				$('.elementor-posts').infiniteScroll({
 					path: 'a.page-numbers.next',
 					append: '.elementor-post',
@@ -404,8 +439,9 @@ class ISE_InfiniteScroll extends Widget_Base
 					hideNav: 'nav.elementor-pagination',
 				    status: '.page-load-status',
 				});
-			});
-			</script>
+              });
+          });
+        </script>
 			 
 			<?php
             }
@@ -551,7 +587,16 @@ class ISE_InfiniteScroll extends Widget_Base
             <?php } ?>
 			
 			<script type="text/javascript">
-			jQuery(document).ready(function($) {
+          function deferISE(method) {
+              if (window.jQuery) {
+                  method();
+              } else {
+                  setTimeout(function() { deferISE(method) }, 50);
+              }
+          }
+          deferISE(function() {            
+            jQuery(document).ready(function($) {
+              <?php echo $ImgRatioFix ?>
 				$('div.elementor-posts-container').infiniteScroll({
 					path: 'a.page-numbers.next',
 					append: 'article.elementor-post',
@@ -559,8 +604,9 @@ class ISE_InfiniteScroll extends Widget_Base
 					hideNav: 'nav.elementor-pagination',
 				    status: '.page-load-status',
 				});
-			});
-			</script>
+              });
+          });
+        </script>
 			<?php
             }
         }
@@ -712,8 +758,9 @@ class ISE_InfiniteScroll extends Widget_Base
 					history: false ,
 					status: '.page-load-status',
 				});
-			});
-			</script>
+              });
+          });
+        </script>
 			<?php
             }
         }
@@ -870,8 +917,9 @@ class ISE_InfiniteScroll extends Widget_Base
 					history: false ,
 					status: '.page-load-status',
 				});
-			});
-			</script>
+              });
+          });
+        </script>
 			<?php
             }
         }
@@ -918,107 +966,42 @@ class ISE_InfiniteScroll extends Widget_Base
         $this->add_responsive_control(
             'infinite_scroll_status_top_spacing',
             [
-                            'label' 		=> __('Top Spacing', 'infinite-scroll-elementor-td'),
-                            'type' 			=> Controls_Manager::SLIDER,
-                            'range' 		=> [
-                                'px' 		=> [
-                                    'min' => 0,
-                                    'max' => 48,
-                                ],
-                            ],
+                            'label' 		=> __('Spacing', 'infinite-scroll-elementor-td'),
+                            'type' 			=> Controls_Manager::DIMENSIONS,
+                            'size_units' 	=> [ 'px', 'em', '%' ],
                             'selectors' 	=> [
-                                '{{WRAPPER}} .loadingText' => 'margin-top: {{SIZE}}px',
+                                '{{WRAPPER}} .page-load-status' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                             ],
-                            'condition' => [
-                                'infinite_scroll_elementor_loading_type' => 'text',
-                            ]
-                        ]
-        );
-
-        $this->add_responsive_control(
-            'infinite_scroll_status_bottom_spacing',
-            [
-                            'label' 		=> __('Bottom Spacing', 'infinite-scroll-elementor-td'),
-                            'type' 			=> Controls_Manager::SLIDER,
-                            'range' 		=> [
-                                'px' 		=> [
-                                    'min' => 0,
-                                    'max' => 48,
-                                ],
-                            ],
-                            'selectors' 	=> [
-                                '{{WRAPPER}} .loadingText' => 'margin-bottom: {{SIZE}}px',
-                            ],
-                            'condition' => [
-                                'infinite_scroll_elementor_loading_type' => 'text',
-                            ]
-                        ]
+							'default' => [
+										'unit' => 'px',
+										'top' => 0,
+										'right' => 0,
+										'bottom' => 24,
+										'left' => 0,
+										'isLinked' => true,
+										]
+							]
         );
 
         $this->add_control(
             'infinite_scroll_loader_color',
             [
                             'label' 	=> __('Animation Color', 'infinite-scroll-elementor-td'),
+							'separator' => 'before',
                             'type' 		=> Controls_Manager::COLOR,
                             'scheme' => [
-                            'type' => \Elementor\Scheme_Color::get_type(),
-                            'value' => \Elementor\Scheme_Color::COLOR_1,
+                                'type' => \Elementor\Scheme_Color::get_type(),
+                                'value' => \Elementor\Scheme_Color::COLOR_1,
                             ],
                             'default' => '#a1a1a1',
                             'selectors' => [
                                 '{{WRAPPER}} .loader-ellips__dot' => 'background: {{VALUE}};',
                             ],
-                            'condition' => [
+							'condition' => [
                                 'infinite_scroll_elementor_loading_type' => 'animation',
                             ]
                         ]
         );
-        
-        $this->add_responsive_control(
-            'infinite_scroll_status_loader_top_spacing',
-            [
-                            'label' 		=> __('Top Spacing', 'infinite-scroll-elementor-td'),
-                            'type' 			=> Controls_Manager::SLIDER,
-                            'range' 		=> [
-                                'px' 		=> [
-                                    'min' => 0,
-                                    'max' => 48,
-                                ],
-                            ],
-                            'selectors' 	=> [
-                                '{{WRAPPER}} .page-load-status' => 'margin-top: {{SIZE}}px',
-                            ],
-                            'condition' => [
-                                'infinite_scroll_elementor_loading_type' => 'animation',
-                            ]
-                        ]
-        );
-
-        $this->add_responsive_control(
-            'infinite_scroll_status_loader_bottom_spacing',
-            [
-                            'label' 		=> __('Bottom Spacing', 'infinite-scroll-elementor-td'),
-                            'type' 			=> Controls_Manager::SLIDER,
-                            'default' => [
-                                'unit' => 'px',
-                                'size' => 24,
-                            ],
-                            'range' 		=> [
-                                'px' 		=> [
-                                    'min' => 0,
-                                    'max' => 48,
-                                ],
-                            ],
-                            'selectors' 	=> [
-                                '{{WRAPPER}} .page-load-status' => 'margin-bottom: {{SIZE}}px',
-                            ],
-                            'condition' => [
-                                'infinite_scroll_elementor_loading_type' => 'animation',
-                            ]
-                        ]
-        );
-        $this->end_controls_tab();
-        $this->end_controls_tab();
         
         $this->end_controls_section();
     }

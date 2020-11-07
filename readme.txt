@@ -6,7 +6,7 @@ Tags: infinite scroll, load more, pagination, paginate, scroll, infinite, infini
 Requires at least: 5.0
 Tested up to: 5.5.1
 Requires PHP: 5.6
-Stable tag: 2.2.2
+Stable tag: 2.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,15 @@ Infinite Scroll Elementor does not add any CSS to your website. It only adds few
 You can also get help from my website by [commenting in this post](https://joychetry.com/infinite-scroll-elementor/).
 
 == Changelog ==
+
+= 2.3 - 2020-11-07 =
+* Tweak: Defer jQuery compatibility ([#2](https://github.com/joychetry/infinite-scroll-elementor/issues/2))
+* Fix: Missing class 'elementor-fit-height' after Infinite Scrolling ([#3](https://github.com/joychetry/infinite-scroll-elementor/issues/3))
+* Tweak: Ability to toggle Image Ratio Fix in Elementor Post and Elementor Archive.
+* Tweak: Infinite Scroll Elementor options are properly arranged.
+* New: Ability to add Margin.
+* New: Ability to add Text Shadow.
+* New: Ability to add Spacing to Loading Animation.
 
 = 2.2.2 - 2020-10-20 =
 * Fix: Fatal error after adding both Infinite Scroll Elementor and Button Load Elementor two times in the same page ([#1](https://github.com/joychetry/infinite-scroll-elementor/issues/1#issuecomment-711065217))

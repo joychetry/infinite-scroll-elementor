@@ -26,7 +26,7 @@ class ISE_ButtonLoad extends Widget_Base
 
     public function get_icon()
     {
-        return 'eicon-button';
+        return 'eicon-lightbox';
     }
     
     public function get_categories()
@@ -159,6 +159,7 @@ class ISE_ButtonLoad extends Widget_Base
             'button_load_elementor_last_text',
             [
                 'label' 		=> __('Last Text', 'infinite-scroll-elementor-td'),
+                'separator' => 'before',
                 'type' 			=> Controls_Manager::TEXT,
                 'default' 		=> __('You have made it till the end!', 'infinite-scroll-elementor-td'),
                 'placeholder' 	=> __('You have made it till the end!', 'infinite-scroll-elementor-td'),
@@ -176,12 +177,27 @@ class ISE_ButtonLoad extends Widget_Base
                 'type' 			=> Controls_Manager::TEXT,
                 'default' 		=> __('No post here!', 'infinite-scroll-elementor-td'),
                 'placeholder' 	=> __('No post here!', 'infinite-scroll-elementor-td'),
-                'separator'		=> 'after',
                 'condition' => [
                     'ISEButton_register' => 'yes',
                     'button_load_elementor_animation' => 'yes',
                 ],
             ]
+        );
+
+        /* Image Ratio Fix */
+        $this->add_control(
+            'missing_featured_image_fix',
+            [
+            'label'        => __('Fix Image Ratio', 'infinite-scroll-elementor-td'),
+            'separator'    => 'before',
+            'type'         => \Elementor\Controls_Manager::SWITCHER,
+            'label_on'     => __('yes', 'infinite-scroll-elementor-td'),
+            'label_off'    => __('no', 'infinite-scroll-elementor-td'),
+            'description' => __('Only make it YES if you have modified Image Ratio to more or less than 0.66 in the Post Widget or if you are missing the featured image.', 'infinite-scroll-elementor-td'),
+            'condition' => [
+              'ISEButton_register' => 'yes',
+          ],
+        ]
         );
         
         /* Documentation Box */
@@ -189,9 +205,9 @@ class ISE_ButtonLoad extends Widget_Base
             'documentation',
             [
                     'type'            => Controls_Manager::RAW_HTML,
+                    'separator' => 'before',
                     'raw'             => __('Infinite Scroll Elementor plugin adds advanced Ajax Load More and Infinite Scroll functions to Elementor.<br><a href="https://joychetry.com/infinite-scroll-elementor/" target="_blank">Check Documentation</a>', 'infinite-scroll-elementor-td'),
                     'content_classes' => 'elementor-control-raw-html elementor-panel-alert elementor-panel-alert-info',
-                    'separator'		=> 'after',
                 ]
         );
 
@@ -272,7 +288,17 @@ class ISE_ButtonLoad extends Widget_Base
         $loadingText = $settings['button_load_elementor_loading_text'];
 
         $buttonText = $settings['button_load_elementor_button_text'];
+        $MissingThumbnail = $settings['missing_featured_image_fix'];
 
+        if ($settings['missing_featured_image_fix'] === 'yes') {
+            $ImgRatioFixButton = "$(window).scroll(function() {    
+            var scroll = $(window).scrollTop();
+            if (scroll >= 0) {
+              $('.elementor-post__thumbnail').addClass('elementor-fit-height');
+            }
+          });";
+        }
+        
         /* Removed <?php ISEButtoncolor() ?> */
 
         // Elementor Posts
@@ -283,7 +309,11 @@ class ISE_ButtonLoad extends Widget_Base
 				.page-load-status {
 				 display:none; /* hidden by default */
 				}
-
+				
+				.view-more-button:hover {
+					text-decoration: none;
+				}
+				
 				.loader-ellips {
                   font-size: 12px; /* change size here */
 				  position: relative;
@@ -350,6 +380,10 @@ class ISE_ButtonLoad extends Widget_Base
 				.page-load-status {
 				 display:none; /* hidden by default */
 				}
+				
+				.view-more-button:hover {
+					text-decoration: none;
+				}
 
 				.loader-ellips {
                   font-size: 12px; /* change size here */
@@ -400,29 +434,39 @@ class ISE_ButtonLoad extends Widget_Base
 				  animation-direction: reverse;
 				}
                
-			</style>           
-                <div class="page-load-status">
-                    <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
-			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
-			        <p class="infinite-scroll-error"><?php echo $errorText ?></p>
-			    </div>
-            <?php } ?>
+			</style>
 
-            <div class="vmBtn"><button class="view-more-button"><?php echo $buttonText ?></button></div>
+        <div class="page-load-status">
+            <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
+		        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
+		        <p class="infinite-scroll-error"><?php echo $errorText ?></p>
+		    </div>
+        <?php } ?>
+        <div class="vmBtn"><button class="view-more-button"><?php echo $buttonText ?></button></div>
             
-			<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				$('.elementor-posts').infiniteScroll({
-					path: 'a.page-numbers.next',
-					append: '.elementor-post',
-					history: false ,
-					hideNav: 'nav.elementor-pagination',
-				    status: '.page-load-status',
-                    button: '.view-more-button',
-                    scrollThreshold: false,
-				});
-			});
-			</script>
+        <script type="text/javascript">
+          function deferISEbutton(method) {
+              if (window.jQuery) {
+                  method();
+              } else {
+                  setTimeout(function() { deferISEbutton(method) }, 50);
+              }
+          }
+          deferISEbutton(function() {            
+            jQuery(document).ready(function($) {
+              <?php echo $ImgRatioFixButton ?>
+            $('.elementor-posts').infiniteScroll({
+              path: 'a.page-numbers.next',
+              append: '.elementor-post',
+              history: false ,
+              hideNav: 'nav.elementor-pagination',
+                status: '.page-load-status',
+                        button: '.view-more-button',
+                        scrollThreshold: false,
+            });
+              });
+          });
+        </script>
 			<?php
         }
 
@@ -435,6 +479,10 @@ class ISE_ButtonLoad extends Widget_Base
 				.page-load-status {
 				 display:none; /* hidden by default */
 				}
+				
+				.view-more-button:hover {
+					text-decoration: none;
+				}
 
 				.loader-ellips {
                   font-size: 12px; /* change size here */
@@ -486,21 +534,26 @@ class ISE_ButtonLoad extends Widget_Base
 				}
                
 			</style>
-                <div class="page-load-status">
-                  <div class="loader-ellips infinite-scroll-request">
-                    <span class="loader-ellips__dot"></span>
-                    <span class="loader-ellips__dot"></span>
-                    <span class="loader-ellips__dot"></span>
-                    <span class="loader-ellips__dot"></span>
-                  </div>
-                  <p class="infinite-scroll-last"><?php echo $lastText ?></p>
-                  <p class="infinite-scroll-error"><?php echo $errorText ?></p>
-                </div>
+  
+        <div class="page-load-status">
+          <div class="loader-ellips infinite-scroll-request">
+            <span class="loader-ellips__dot"></span>
+            <span class="loader-ellips__dot"></span>
+            <span class="loader-ellips__dot"></span>
+            <span class="loader-ellips__dot"></span>
+          </div>
+            <p class="infinite-scroll-last"><?php echo $lastText ?></p>
+            <p class="infinite-scroll-error"><?php echo $errorText ?></p>
+         </div>
                 <?php
             } else { ?>     
                 <style>
 				.page-load-status {
 				 display:none; /* hidden by default */
+				}
+				
+				.view-more-button:hover {
+					text-decoration: none;
 				}
 
 				.loader-ellips {
@@ -553,28 +606,38 @@ class ISE_ButtonLoad extends Widget_Base
 				}
                
 			</style>           
-                <div class="page-load-status">
-                    <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
-			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
-			        <p class="infinite-scroll-error"><?php echo $errorText ?></p>
-			    </div>
-            <?php } ?>
+      <div class="page-load-status">
+        <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
+        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
+        <p class="infinite-scroll-error"><?php echo $errorText ?></p>
+      </div>
+        <?php } ?>
     
-                <div class="vmBtn"><button class="view-more-button"><?php echo $buttonText ?></button></div>
+      <div class="vmBtn"><button class="view-more-button"><?php echo $buttonText ?></button></div>
 
 			<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				$('div.elementor-posts-container').infiniteScroll({
-					path: 'a.page-numbers.next',
-					append: 'article.elementor-post',
-					history: false ,
-					hideNav: 'nav.elementor-pagination',
-				    status: '.page-load-status',
-                    button: '.view-more-button',
-                    scrollThreshold: false,
-				});
-			});
-			</script>
+        function deferISEbutton(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function() { deferISEbutton(method) }, 50);
+            }
+        }
+        deferISEbutton(function() {
+            jQuery(document).ready(function($) {
+              <?php echo $ImgRatioFixButton ?>
+          $('div.elementor-posts-container').infiniteScroll({
+            path: 'a.page-numbers.next',
+            append: 'article.elementor-post',
+            history: false ,
+            hideNav: 'nav.elementor-pagination',
+              status: '.page-load-status',
+                      button: '.view-more-button',
+                      scrollThreshold: false,
+          });
+          });
+      });
+</script>
 			<?php
         }
 
@@ -585,6 +648,10 @@ class ISE_ButtonLoad extends Widget_Base
 				<style>
 				.page-load-status {
 				 display:none; /* hidden by default */
+				}
+				
+				.view-more-button:hover {
+					text-decoration: none;
 				}
 
 				.loader-ellips {
@@ -653,6 +720,10 @@ class ISE_ButtonLoad extends Widget_Base
 				.page-load-status {
 				 display:none; /* hidden by default */
 				}
+				
+				.view-more-button:hover {
+					text-decoration: none;
+				}
 
 				.loader-ellips {
                   font-size: 12px; /* change size here */
@@ -704,17 +775,25 @@ class ISE_ButtonLoad extends Widget_Base
 				}
                
 			</style>           
-                <div class="page-load-status">
-                    <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
-			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
-			        <p class="infinite-scroll-error"><?php echo $errorText ?></p>
-			    </div>
-            <?php } ?>
+      <div class="page-load-status">
+        <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
+        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
+        <p class="infinite-scroll-error"><?php echo $errorText ?></p>
+      </div>
+  <?php } ?>
 
-            <div class="vmBtn"><button class="view-more-button"><?php echo $buttonText ?></button></div>
+  <div class="vmBtn"><button class="view-more-button"><?php echo $buttonText ?></button></div>
 
 		<script type="text/javascript">
-			jQuery(document).ready(function($) {
+      function deferISEbutton(method) {
+          if (window.jQuery) {
+              method();
+          } else {
+              setTimeout(function() { deferISEbutton(method) }, 50);
+          }
+      }
+      deferISEbutton(function() {
+          jQuery(document).ready(function($) {
 				$('ul.products').infiniteScroll({
 					append: 'li.product',
 					path: 'a.next.page-numbers',
@@ -724,8 +803,9 @@ class ISE_ButtonLoad extends Widget_Base
                     button: '.view-more-button',
                     scrollThreshold: false,
 				});
-			});
-			</script>
+          });
+      });
+</script>
 			<?php
         }
 
@@ -742,6 +822,10 @@ class ISE_ButtonLoad extends Widget_Base
 				.page-load-status {
 				 display:none; /* hidden by default */
 				}
+				
+				.view-more-button:hover {
+					text-decoration: none;
+				}
 
 				.loader-ellips {
                   font-size: 12px; /* change size here */
@@ -809,6 +893,10 @@ class ISE_ButtonLoad extends Widget_Base
 				.page-load-status {
 				 display:none; /* hidden by default */
 				}
+				
+				.view-more-button:hover {
+					text-decoration: none;
+				}
 
 				.loader-ellips {
                   font-size: 12px; /* change size here */
@@ -859,18 +947,26 @@ class ISE_ButtonLoad extends Widget_Base
 				  animation-direction: reverse;
 				}
                
-			</style>           
-                <div class="page-load-status">
-                    <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
-			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
-			        <p class="infinite-scroll-error"><?php echo $errorText ?></p>
-			    </div>
-            <?php } ?>
+			</style>
+      <div class="page-load-status">
+        <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
+        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
+        <p class="infinite-scroll-error"><?php echo $errorText ?></p>
+      </div>
+         <?php } ?>
 
-            <div class="vmBtn"><button class="view-more-button"><?php echo $buttonText ?></button></div>
+      <div class="vmBtn"><button class="view-more-button"><?php echo $buttonText ?></button></div>
 
 		<script type="text/javascript">
-			jQuery(document).ready(function($) {
+      function deferISEbutton(method) {
+          if (window.jQuery) {
+              method();
+          } else {
+              setTimeout(function() { deferISEbutton(method) }, 50);
+          }
+      }
+      deferISEbutton(function() {
+          jQuery(document).ready(function($) {
 				$('<?php echo $content_custom ?>').infiniteScroll({
 					append: '<?php echo $append_custom ?>',
 					path: '<?php echo $path_custom ?>',
@@ -880,8 +976,9 @@ class ISE_ButtonLoad extends Widget_Base
                     button: '.view-more-button',
                     scrollThreshold: false,
 				});
-			});
-			</script>
+          });
+      });
+</script>
 			<?php
         }
     }
@@ -895,44 +992,6 @@ class ISE_ButtonLoad extends Widget_Base
                         'label' => __('Button Load Elementor - ISE', 'infinite-scroll-elementor-td'),
                         'tab'   => Controls_Manager::TAB_STYLE,
                     ]
-        );
-
-        $this->add_responsive_control(
-            'infinite_scroll_button_top_spacing',
-            [
-                            'label' 		=> __('Top Spacing', 'infinite-scroll-elementor-td'),
-                            'type' 			=> Controls_Manager::SLIDER,
-                            'default' => [
-                                'unit' => 'px',
-                                'size' => 24,
-                            ],
-                            'range' 		=> [
-                                'px' 		=> [
-                                    'min' => 0,
-                                    'max' => 48,
-                                ],
-                            ],
-                            'selectors' 	=> [
-                                '{{WRAPPER}} .view-more-button' => 'margin-top: {{SIZE}}px',
-                            ],
-                        ]
-        );
-
-        $this->add_responsive_control(
-            'infinite_scroll_button_bottom_spacing',
-            [
-                            'label' 		=> __('Bottom Spacing', 'infinite-scroll-elementor-td'),
-                            'type' 			=> Controls_Manager::SLIDER,
-                            'range' 		=> [
-                                'px' 		=> [
-                                    'min' => 0,
-                                    'max' => 48,
-                                ],
-                            ],
-                            'selectors' 	=> [
-                                '{{WRAPPER}} .view-more-button' => 'margin-bottom: {{SIZE}}px',
-                            ],
-                        ]
         );
         
         $this->add_responsive_control(
@@ -960,6 +1019,26 @@ class ISE_ButtonLoad extends Widget_Base
                             ],
                         ]
         );
+
+        $this->add_responsive_control(
+            'infinite_scroll_button_margin',
+            [
+                            'label' 		=> __('Margin', 'infinite-scroll-elementor-td'),
+                            'type' 			=> Controls_Manager::DIMENSIONS,
+                            'size_units' 	=> [ 'px', 'em', '%' ],
+                            'selectors' 	=> [
+                                '{{WRAPPER}} .view-more-button' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                            ],
+                            'default' => [
+                                        'unit' => 'px',
+                                        'top' => 24,
+                                        'right' => 0,
+                                        'bottom' => 0,
+                                        'left' => 0,
+                                        'isLinked' => true,
+                                        ]
+                            ],
+        );
         
         $this->add_responsive_control(
             'infinite_scroll_button_padding',
@@ -970,41 +1049,12 @@ class ISE_ButtonLoad extends Widget_Base
                             'selectors' 	=> [
                                 '{{WRAPPER}} .view-more-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                             ],
+                            'separator' => 'after',
                         ]
         );
         
         $this->add_group_control(
-            Group_Control_Border::get_type(),
-            [
-                            'name' 		=> 'load_button',
-                            'label' 	=> __('Border', 'infinite-scroll-elementor-td'),
-                            'selector' 	=> '{{WRAPPER}} .view-more-button',
-                        ]
-        );
-        
-        $this->add_control(
-            'infinite_scroll_button_border_radius',
-            [
-                            'type' 			=> Controls_Manager::DIMENSIONS,
-                            'label' 		=> __('Border Radius', 'infinite-scroll-elementor-td'),
-                            'size_units' 	=> [ 'px', '%' ],
-                            'selectors' 	=> [
-                                '{{WRAPPER}}  .view-more-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                            ],
-                        ]
-        );
-
-        $this->add_group_control(
-            Group_Control_Box_Shadow::get_type(),
-            [
-                'separator'		=> 'after',
-                'name' => 'button_box_shadow',
-                'selector' => '{{WRAPPER}} .view-more-button',
-            ]
-        );
-        
-        $this->add_group_control(
-            Group_Control_Typography::get_type(),
+            \Elementor\Group_Control_Typography::get_type(),
             [
                             'name' 		=> 'infinite_scroll_button_typography',
                             'label' 	=> __('Typography', 'infinite-scroll-elementor-td'),
@@ -1013,6 +1063,15 @@ class ISE_ButtonLoad extends Widget_Base
                             ],
                             'selector' 	=> '{{WRAPPER}} .view-more-button',
                         ]
+        );
+        
+        $this->add_group_control(
+            \Elementor\Group_Control_Text_Shadow::get_type(),
+            [
+                'name' => 'infinite_scroll_button_text_shadow',
+                'label' 	=> __('Text Shadow', 'infinite-scroll-elementor-td'),
+                'selector' => '{{WRAPPER}} .view-more-button',
+            ]
         );
         
         $this->start_controls_tabs('infinite_scroll_button_tabs_hover');
@@ -1087,16 +1146,61 @@ class ISE_ButtonLoad extends Widget_Base
                             ]
         );
         
+        $this->add_control(
+            'infinite_scroll_button_hover_border_color',
+            [
+                'label' => __('Border Color', 'infinite-scroll-elementor-td'),
+                'type' => Controls_Manager::COLOR,
+                'condition' => [
+                    'border_border!' => '',
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .view-more-button:hover, {{WRAPPER}} .view-more-button:focus' => 'border-color: {{VALUE}};',
+                ],
+            ]
+        );
+        
         $this->end_controls_tab();
         $this->end_controls_tabs();
+        
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
+            [
+                            'name' 		=> 'load_button',
+                            'label' 	=> __('Border', 'infinite-scroll-elementor-td'),
+                            'selector' 	=> '{{WRAPPER}} .view-more-button',
+                            'separator' => 'before',
+                        ]
+        );
+        
+        $this->add_control(
+            'infinite_scroll_button_border_radius',
+            [
+                            'type' 			=> Controls_Manager::DIMENSIONS,
+                            'label' 		=> __('Border Radius', 'infinite-scroll-elementor-td'),
+                            'size_units' 	=> [ 'px', '%' ],
+                            'selectors' 	=> [
+                                '{{WRAPPER}}  .view-more-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                            ],
+                        ]
+        );
 
+        $this->add_group_control(
+            Group_Control_Box_Shadow::get_type(),
+            [
+                'separator'		=> 'after',
+                'name' => 'button_box_shadow',
+                'selector' => '{{WRAPPER}} .view-more-button',
+            ]
+        );
+        
         $this->end_controls_section();
     }
 
     public function register_button_animation_style_controls()
     {
         $this->start_controls_section(
-            'section_style_animation_infinite_scroll',
+            'section_style_animation_infinite_scroll_button',
             [
                         'label' => __('Loading Style', 'infinite-scroll-elementor-td'),
                         'tab'   => Controls_Manager::TAB_STYLE,
@@ -1104,7 +1208,7 @@ class ISE_ButtonLoad extends Widget_Base
         );
 
         $this->add_responsive_control(
-            'infinite_scroll_loading_align',
+            'infinite_scroll_button_loading_align',
             [
                             'label' 		=> __('Align', 'infinite-scroll-elementor-td'),
                             'type' 			=> Controls_Manager::CHOOSE,
@@ -1127,54 +1231,35 @@ class ISE_ButtonLoad extends Widget_Base
                                 '{{WRAPPER}} .loadingText' => 'text-align: {{VALUE}};',
                                 '{{WRAPPER}} .infinite-scroll-last' => 'text-align: {{VALUE}};',
                                 '{{WRAPPER}} .infinite-scroll-error' => 'text-align: {{VALUE}};',
-                            ],
-                        ]
-        );
-
-        $this->add_responsive_control(
-            'infinite_scroll_status_top_spacing',
-            [
-                            'label' 		=> __('Top Spacing', 'infinite-scroll-elementor-td'),
-                            'type' 			=> Controls_Manager::SLIDER,
-                            'range' 		=> [
-                                'px' 		=> [
-                                    'min' => 0,
-                                    'max' => 48,
-                                ],
-                            ],
-                            'selectors' 	=> [
-                                '{{WRAPPER}} .loadingText' => 'margin-top: {{SIZE}}px',
-                            ],
-                            'condition' => [
-                                'button_load_elementor_loading_type' => 'text',
                             ]
                         ]
         );
-
+        
         $this->add_responsive_control(
-            'infinite_scroll_status_bottom_spacing',
+            'infinite_scroll_button_loading_spacing',
             [
-                            'label' 		=> __('Bottom Spacing', 'infinite-scroll-elementor-td'),
-                            'type' 			=> Controls_Manager::SLIDER,
-                            'range' 		=> [
-                                'px' 		=> [
-                                    'min' => 0,
-                                    'max' => 48,
-                                ],
-                            ],
+                            'label' 		=> __('Spacing', 'infinite-scroll-elementor-td'),
+                            'type' 			=> Controls_Manager::DIMENSIONS,
+                            'size_units' 	=> [ 'px', 'em', '%' ],
                             'selectors' 	=> [
-                                '{{WRAPPER}} .loadingText' => 'margin-bottom: {{SIZE}}px',
+                                '{{WRAPPER}} .page-load-status' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                             ],
-                            'condition' => [
-                                'button_load_elementor_loading_type' => 'text',
+                            'default' => [
+                                        'unit' => 'px',
+                                        'top' => 0,
+                                        'right' => 0,
+                                        'bottom' => 24,
+                                        'left' => 0,
+                                        'isLinked' => true,
+                                        ]
                             ]
-                        ]
         );
-
+        
         $this->add_control(
-            'infinite_scroll_loader_color',
+            'infinite_scroll_button_loader_color',
             [
                             'label' 	=> __('Animation Color', 'infinite-scroll-elementor-td'),
+                            'separator' => 'before',
                             'type' 		=> Controls_Manager::COLOR,
                             'scheme' => [
                                 'type' => \Elementor\Scheme_Color::get_type(),
@@ -1189,52 +1274,6 @@ class ISE_ButtonLoad extends Widget_Base
                             ]
                         ]
         );
-        
-        $this->add_responsive_control(
-            'infinite_scroll_status_loader_top_spacing',
-            [
-                            'label' 		=> __('Top Spacing', 'infinite-scroll-elementor-td'),
-                            'type' 			=> Controls_Manager::SLIDER,
-                            'range' 		=> [
-                                'px' 		=> [
-                                    'min' => 0,
-                                    'max' => 48,
-                                ],
-                            ],
-                            'selectors' 	=> [
-                                '{{WRAPPER}} .page-load-status' => 'margin-top: {{SIZE}}px',
-                            ],
-                            'condition' => [
-                                'button_load_elementor_loading_type' => 'animation',
-                            ]
-                        ]
-        );
-
-        $this->add_responsive_control(
-            'infinite_scroll_status_loader_bottom_spacing',
-            [
-                            'label' 		=> __('Bottom Spacing', 'infinite-scroll-elementor-td'),
-                            'type' 			=> Controls_Manager::SLIDER,
-                            'default' => [
-                                'unit' => 'px',
-                                'size' => 24,
-                            ],
-                            'range' 		=> [
-                                'px' 		=> [
-                                    'min' => 0,
-                                    'max' => 48,
-                                ],
-                            ],
-                            'selectors' 	=> [
-                                '{{WRAPPER}} .page-load-status' => 'margin-bottom: {{SIZE}}px',
-                            ],
-                            'condition' => [
-                                'button_load_elementor_loading_type' => 'animation',
-                            ]
-                        ]
-        );
-        $this->end_controls_tab();
-        $this->end_controls_tab();
         
         $this->end_controls_section();
     }
