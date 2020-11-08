@@ -16,7 +16,7 @@ if (! defined('ABSPATH')) {
 
 final class infinite_scroll_elementor_Final
 {
-    const VERSION = '2.3.1';
+    const VERSION = '2.3.2';
     const MINIMUM_ELEMENTOR_VERSION = '2.0.0';
     const MINIMUM_PHP_VERSION = '5.6';
 
