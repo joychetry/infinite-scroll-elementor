@@ -1037,7 +1037,7 @@ class ISE_ButtonLoad extends Widget_Base
                                         'left' => 0,
                                         'isLinked' => true,
                                         ]
-                            ],
+                            ]
         );
         
         $this->add_responsive_control(

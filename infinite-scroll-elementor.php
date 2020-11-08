@@ -4,7 +4,7 @@
  * Description: Infinite Scroll Elementor pulls the next posts automatically when the reader approaches the bottom of the page.
  * Tags: infinite scroll, load more, pagination, paginate, scroll, infinite, infinity, ajax, posts, products, elementor, woocommerce, facetwp, jetsmartfilters
  * Plugin URI: https://joychetry.com/infinite-scroll-elementor/
- * Version: 2.3
+ * Version: 2.3.2
  * Author: Joy Chetry
  * Author URI: https://joychetry.com/
  * Text Domain: infinite-scroll-elementor
@@ -16,7 +16,7 @@ if (! defined('ABSPATH')) {
 
 final class infinite_scroll_elementor_Final
 {
-    const VERSION = '2.3';
+    const VERSION = '2.3.1';
     const MINIMUM_ELEMENTOR_VERSION = '2.0.0';
     const MINIMUM_PHP_VERSION = '5.6';
 
