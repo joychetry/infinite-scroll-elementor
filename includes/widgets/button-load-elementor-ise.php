@@ -44,7 +44,7 @@ class ISE_ButtonLoad extends Widget_Base
         return [ 'button-load-elementor-css' ];
     }
     
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->register_layout_content_controls();
         $this->register_button_load_style_controls();

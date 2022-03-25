@@ -44,7 +44,7 @@ class ISE_InfiniteScroll extends Widget_Base
         return [ 'infinite-scroll-elementor-css' ];
     }
     
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->register_layout_content_controls();
         $this->register_infinite_scroll_animation_style_controls();
