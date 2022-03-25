@@ -1086,8 +1086,8 @@ class ISE_ButtonLoad extends Widget_Base
                                 'label' 	=> __('Color', 'infinite-scroll-elementor-td'),
                                 'type' 		=> Controls_Manager::COLOR,
                                 'scheme' => [
-                                    'type' => \Elementor\Scheme_Color::get_type(),
-                                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                                    'type' => \Elementor\Core\Schemes\Color::get_type(),
+                                    'value' => \Elementor\Core\Schemes\Color::COLOR_1,
                                 ],
                                 'selectors' => [
                                     '{{WRAPPER}} .view-more-button' => 'color: {{VALUE}};',
@@ -1101,8 +1101,8 @@ class ISE_ButtonLoad extends Widget_Base
                                 'label' 	=> __('Background Color', 'infinite-scroll-elementor-td'),
                                 'type' 		=> Controls_Manager::COLOR,
                                 'scheme' => [
-                                    'type' => \Elementor\Scheme_Color::get_type(),
-                                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                                    'type' => \Elementor\Core\Schemes\Color::get_type(),
+                                    'value' => \Elementor\Core\Schemes\Color::COLOR_1,
                                 ],
                                 'selectors' => [
                                     '{{WRAPPER}} .view-more-button' => 'background-color: {{VALUE}};',
@@ -1122,8 +1122,8 @@ class ISE_ButtonLoad extends Widget_Base
                                 'label' 	=> __('Color', 'infinite-scroll-elementor-td'),
                                 'type' 		=> Controls_Manager::COLOR,
                                 'scheme' => [
-                                    'type' => \Elementor\Scheme_Color::get_type(),
-                                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                                    'type' => \Elementor\Core\Schemes\Color::get_type(),
+                                    'value' => \Elementor\Core\Schemes\Color::COLOR_1,
                                 ],
                                 'selectors' => [
                                     '{{WRAPPER}} .view-more-button:hover' => 'color: {{VALUE}};',
@@ -1137,8 +1137,8 @@ class ISE_ButtonLoad extends Widget_Base
                                 'label' 	=> __('Background Color', 'infinite-scroll-elementor-td'),
                                 'type' 		=> Controls_Manager::COLOR,
                                 'scheme' => [
-                                    'type' => \Elementor\Scheme_Color::get_type(),
-                                    'value' => \Elementor\Scheme_Color::COLOR_1,
+                                    'type' => \Elementor\Core\Schemes\Color::get_type(),
+                                    'value' => \Elementor\Core\Schemes\Color::COLOR_1,
                                 ],
                                 'selectors' => [
                                     '{{WRAPPER}} .view-more-button:hover' => 'background-color: {{VALUE}};',
@@ -1262,8 +1262,8 @@ class ISE_ButtonLoad extends Widget_Base
                             'separator' => 'before',
                             'type' 		=> Controls_Manager::COLOR,
                             'scheme' => [
-                                'type' => \Elementor\Scheme_Color::get_type(),
-                                'value' => \Elementor\Scheme_Color::COLOR_1,
+                                'type' => \Elementor\Core\Schemes\Color::get_type(),
+                                'value' => \Elementor\Core\Schemes\Color::COLOR_1,
                             ],
                             'default' => '#a1a1a1',
                             'selectors' => [
