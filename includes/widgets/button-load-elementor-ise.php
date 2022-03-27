@@ -31,7 +31,7 @@ class ISE_ButtonLoad extends Widget_Base
     
     public function get_categories()
     {
-        return [ 'button-load-elementor-category' ];
+        return [ 'infinite-scroll-elementor-category' ];
     }
 
     public function get_script_depends()
@@ -44,7 +44,7 @@ class ISE_ButtonLoad extends Widget_Base
         return [ 'button-load-elementor-css' ];
     }
     
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->register_layout_content_controls();
         $this->register_button_load_style_controls();
@@ -1084,11 +1084,7 @@ class ISE_ButtonLoad extends Widget_Base
             'infinite_scroll_button_color',
             [
                                 'label' 	=> __('Color', 'infinite-scroll-elementor-td'),
-                                'type' 		=> Controls_Manager::COLOR,
-                                'scheme' => [
-                                    'type' => \Elementor\Scheme_Color::get_type(),
-                                    'value' => \Elementor\Scheme_Color::COLOR_1,
-                                ],
+                                'type' 		=> Controls_Manager::COLOR,                                
                                 'selectors' => [
                                     '{{WRAPPER}} .view-more-button' => 'color: {{VALUE}};',
                                 ],
@@ -1100,10 +1096,6 @@ class ISE_ButtonLoad extends Widget_Base
             [
                                 'label' 	=> __('Background Color', 'infinite-scroll-elementor-td'),
                                 'type' 		=> Controls_Manager::COLOR,
-                                'scheme' => [
-                                    'type' => \Elementor\Scheme_Color::get_type(),
-                                    'value' => \Elementor\Scheme_Color::COLOR_1,
-                                ],
                                 'selectors' => [
                                     '{{WRAPPER}} .view-more-button' => 'background-color: {{VALUE}};',
                                 ],
@@ -1121,10 +1113,6 @@ class ISE_ButtonLoad extends Widget_Base
             [
                                 'label' 	=> __('Color', 'infinite-scroll-elementor-td'),
                                 'type' 		=> Controls_Manager::COLOR,
-                                'scheme' => [
-                                    'type' => \Elementor\Scheme_Color::get_type(),
-                                    'value' => \Elementor\Scheme_Color::COLOR_1,
-                                ],
                                 'selectors' => [
                                     '{{WRAPPER}} .view-more-button:hover' => 'color: {{VALUE}};',
                                 ],
@@ -1136,10 +1124,6 @@ class ISE_ButtonLoad extends Widget_Base
             [
                                 'label' 	=> __('Background Color', 'infinite-scroll-elementor-td'),
                                 'type' 		=> Controls_Manager::COLOR,
-                                'scheme' => [
-                                    'type' => \Elementor\Scheme_Color::get_type(),
-                                    'value' => \Elementor\Scheme_Color::COLOR_1,
-                                ],
                                 'selectors' => [
                                     '{{WRAPPER}} .view-more-button:hover' => 'background-color: {{VALUE}};',
                                 ],
@@ -1261,10 +1245,6 @@ class ISE_ButtonLoad extends Widget_Base
                             'label' 	=> __('Animation Color', 'infinite-scroll-elementor-td'),
                             'separator' => 'before',
                             'type' 		=> Controls_Manager::COLOR,
-                            'scheme' => [
-                                'type' => \Elementor\Scheme_Color::get_type(),
-                                'value' => \Elementor\Scheme_Color::COLOR_1,
-                            ],
                             'default' => '#a1a1a1',
                             'selectors' => [
                                 '{{WRAPPER}} .loader-ellips__dot' => 'background: {{VALUE}};',

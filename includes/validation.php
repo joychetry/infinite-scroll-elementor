@@ -18,11 +18,6 @@ class Plugin
         wp_enqueue_script('infinite-scroll-js', plugin_dir_url(__FILE__) . '../assets/js/infinite-scroll.pkgd.min.js', '', '', true);
     }
 
-    public function widget_styles()
-    {
-        wp_register_style('infinite-scroll-elementor-css', plugins_url('../assets/css/infinite-scroll-elementor.css', __FILE__));
-    }
-
     private function include_widgets_files()
     {
         require_once(__DIR__ . '/widgets/infinite-scroll-elementor-ise.php');
@@ -61,9 +56,6 @@ class Plugin
         // Register widgets scripts
         add_action('elementor/frontend/after_register_scripts', [ $this, 'widget_scripts' ]);
         
-        // Register widgets styles
-        add_action('elementor/frontend/after_enqueue_styles', [ $this, 'widget_styles' ]);
-
         // Register widgets
         add_action('elementor/widgets/widgets_registered', [ $this, 'register_widgets' ]);
         

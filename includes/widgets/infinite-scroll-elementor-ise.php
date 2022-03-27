@@ -44,7 +44,7 @@ class ISE_InfiniteScroll extends Widget_Base
         return [ 'infinite-scroll-elementor-css' ];
     }
     
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->register_layout_content_controls();
         $this->register_infinite_scroll_animation_style_controls();
@@ -989,8 +989,8 @@ class ISE_InfiniteScroll extends Widget_Base
 							'separator' => 'before',
                             'type' 		=> Controls_Manager::COLOR,
                             'scheme' => [
-                                'type' => \Elementor\Scheme_Color::get_type(),
-                                'value' => \Elementor\Scheme_Color::COLOR_1,
+                                'type' => \Elementor\Core\Schemes\Color::get_type(),
+                                'value' => \Elementor\Core\Schemes\Color::COLOR_1,
                             ],
                             'default' => '#a1a1a1',
                             'selectors' => [

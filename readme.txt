@@ -4,9 +4,9 @@ Contributors: joychetry
 Donate link: https://www.buymeacoffee.com/joychetry/
 Tags: infinite scroll, load more, pagination, paginate, scroll, infinite, infinity, ajax, posts, products, elementor, woocommerce, facetwp, jetsmartfilters
 Requires at least: 5.0
-Tested up to: 5.5.3
+Tested up to: 5.9.2
 Requires PHP: 5.6
-Stable tag: 2.3.2
+Stable tag: 2.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,10 @@ Infinite Scroll Elementor does not add any CSS to your website. It only adds few
 You can also get help from my website by [commenting in this post](https://joychetry.com/infinite-scroll-elementor/).
 
 == Changelog ==
+
+= 2.4 - 2022-03-28 =
+* Fix: Compatibility with Elementor 3.6 ([#6](https://github.com/joychetry/infinite-scroll-elementor/pull/17))
+* Fix: Button Load - ISE is now visible in Elementor Widgets Panel ([#5](https://github.com/joychetry/infinite-scroll-elementor/issues/16))
 
 = 2.3.2 - 2020-11-08 =
 * Fix: WooCommerce Product loop fix in Infinite Scroll Elementor ([#4](https://github.com/joychetry/infinite-scroll-elementor/pull/4))
