@@ -916,8 +916,7 @@ class ISE_InfiniteScroll extends Widget_Base
 					history: false ,
 					status: '.page-load-status',
 				});
-              });
-          });
+			});
         </script>
 			<?php
             }
