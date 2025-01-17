@@ -446,15 +446,15 @@ class ISE_ButtonLoad extends Widget_Base
             
         <script type="text/javascript">
           function deferISEbutton(method) {
-              if (window.jQuery) {
-                  method();
-              } else {
-                  setTimeout(function() { deferISEbutton(method) }, 50);
-              }
+            if (window.jQuery) {
+              method();
+            } else {
+              setTimeout(function() { deferISEbutton(method) }, 50);
+            }
           }
-          deferISEbutton(function() {            
+          deferISEbutton(function() {
             jQuery(document).ready(function($) {
-              <?php echo $ImgRatioFixButton ?>
+              <?php echo isset($ImgRatioFixButton) ? $ImgRatioFixButton : ''; ?>
             $('.elementor-posts').infiniteScroll({
               path: 'a.page-numbers.next',
               append: '.elementor-post',
@@ -615,17 +615,17 @@ class ISE_ButtonLoad extends Widget_Base
     
       <div class="vmBtn"><button class="view-more-button"><?php echo $buttonText ?></button></div>
 
-			<script type="text/javascript">
+      <script type="text/javascript">
         function deferISEbutton(method) {
-            if (window.jQuery) {
-                method();
-            } else {
-                setTimeout(function() { deferISEbutton(method) }, 50);
-            }
+          if (window.jQuery) {
+            method();
+          } else {
+            setTimeout(function() { deferISEbutton(method) }, 50);
+          }
         }
         deferISEbutton(function() {
-            jQuery(document).ready(function($) {
-              <?php echo $ImgRatioFixButton ?>
+          jQuery(document).ready(function($) {
+            <?php echo isset($ImgRatioFixButton) ? $ImgRatioFixButton : ''; ?>
           $('div.elementor-posts-container').infiniteScroll({
             path: 'a.page-numbers.next',
             append: 'article.elementor-post',

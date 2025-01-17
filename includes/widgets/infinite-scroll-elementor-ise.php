@@ -422,26 +422,26 @@ class ISE_InfiniteScroll extends Widget_Base
             <?php } ?>
 			
 			<script type="text/javascript">
-          function deferISE(method) {
-              if (window.jQuery) {
-                  method();
-              } else {
-                  setTimeout(function() { deferISE(method) }, 50);
-              }
-          }
-          deferISE(function() {            
-            jQuery(document).ready(function($) {
-              <?php echo $ImgRatioFix ?>
-				$('.elementor-posts').infiniteScroll({
-					path: 'a.page-numbers.next',
-					append: '.elementor-post',
-					history: false ,
-					hideNav: 'nav.elementor-pagination',
-				    status: '.page-load-status',
+				function deferISE(method) {
+					if (window.jQuery) {
+					method();
+					} else {
+					setTimeout(function() { deferISE(method) }, 50);
+					}
+				}
+				deferISE(function() {
+					jQuery(document).ready(function($) {
+					<?php echo isset($ImgRatioFix) ? $ImgRatioFix : ''; ?>
+					$('.elementor-posts').infiniteScroll({
+						path: 'a.page-numbers.next',
+						append: '.elementor-post',
+						history: false ,
+						hideNav: 'nav.elementor-pagination',
+						status: '.page-load-status',
+					});
+					});
 				});
-              });
-          });
-        </script>
+			</script>
 			 
 			<?php
             }
@@ -587,26 +587,27 @@ class ISE_InfiniteScroll extends Widget_Base
             <?php } ?>
 			
 			<script type="text/javascript">
-          function deferISE(method) {
-              if (window.jQuery) {
-                  method();
-              } else {
-                  setTimeout(function() { deferISE(method) }, 50);
-              }
-          }
-          deferISE(function() {            
-            jQuery(document).ready(function($) {
-              <?php echo $ImgRatioFix ?>
-				$('div.elementor-posts-container').infiniteScroll({
-					path: 'a.page-numbers.next',
-					append: 'article.elementor-post',
-					history: false ,
-					hideNav: 'nav.elementor-pagination',
-				    status: '.page-load-status',
+				function deferISE(method) {
+					if (window.jQuery) {
+					method();
+					} else {
+					setTimeout(function() { deferISE(method) }, 50);
+					}
+				}
+				deferISE(function() {
+					jQuery(document).ready(function($) {
+					<?php echo isset($ImgRatioFix) ? $ImgRatioFix : ''; ?>
+					$('div.elementor-posts-container').infiniteScroll({
+						path: 'a.page-numbers.next',
+						append: 'article.elementor-post',
+						history: false ,
+						hideNav: 'nav.elementor-pagination',
+						status: '.page-load-status',
+					});
 				});
-              });
-          });
-        </script>
+			});
+			</script>
+		
 			<?php
             }
         }
@@ -987,10 +988,9 @@ class ISE_InfiniteScroll extends Widget_Base
                             'label' 	=> __('Animation Color', 'infinite-scroll-elementor-td'),
 							'separator' => 'before',
                             'type' 		=> Controls_Manager::COLOR,
-                            'scheme' => [
-                                'type' => \Elementor\Core\Schemes\Color::get_type(),
-                                'value' => \Elementor\Core\Schemes\Color::COLOR_1,
-                            ],
+                            'global' => [
+								'default' => Global_Colors::COLOR_PRIMARY,
+							],
                             'default' => '#a1a1a1',
                             'selectors' => [
                                 '{{WRAPPER}} .loader-ellips__dot' => 'background: {{VALUE}};',

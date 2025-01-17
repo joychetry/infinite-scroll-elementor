@@ -4,9 +4,9 @@ Contributors: joychetry
 Donate link: https://www.buymeacoffee.com/joychetry/
 Tags: infinite scroll, load more, pagination, paginate, scroll, infinite, infinity, ajax, posts, products, elementor, woocommerce, facetwp, jetsmartfilters
 Requires at least: 5.0
-Tested up to: 5.9.2
+Tested up to: 6.7.1
 Requires PHP: 5.6
-Stable tag: 2.4.1
+Stable tag: 2.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,12 @@ Infinite Scroll Elementor does not add any CSS to your website. It only adds few
 You can also get help from my website by [commenting in this post](https://joychetry.com/infinite-scroll-elementor/).
 
 == Changelog ==
+
+= 2.5 - 2024-01-17 =
+* Fix: Undefined variable warning for $ImgRatioFixButton
+* Fix: jQuery compatibility improvements
+* Update: Migrated from deprecated Elementor color schemes to new global system ([#7](https://github.com/joychetry/infinite-scroll-elementor/pull/25))
+* Tested with WordPress 6.7.1 and Elementor 3.26.5
 
 = 2.4.1 - 2022-04-04 =
 * Fix: Code error ([#7](https://github.com/joychetry/infinite-scroll-elementor/pull/18))
