@@ -53,7 +53,7 @@ You can also get help from my website by [commenting in this post](https://joych
 = 2.5 - 2024-01-17 =
 * Fix: Undefined variable warning for $ImgRatioFixButton
 * Fix: jQuery compatibility improvements
-* Update: Migrated from deprecated Elementor color schemes to new global system ([#7](https://github.com/joychetry/infinite-scroll-elementor/pull/25))
+* Update: Migrated from deprecated Elementor color schemes to new global system ([#8](https://github.com/joychetry/infinite-scroll-elementor/pull/25))
 * Tested with WordPress 6.7.1 and Elementor 3.26.5
 
 = 2.4.1 - 2022-04-04 =
