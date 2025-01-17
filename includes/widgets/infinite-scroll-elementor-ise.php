@@ -987,10 +987,9 @@ class ISE_InfiniteScroll extends Widget_Base
                             'label' 	=> __('Animation Color', 'infinite-scroll-elementor-td'),
 							'separator' => 'before',
                             'type' 		=> Controls_Manager::COLOR,
-                            'scheme' => [
-                                'type' => \Elementor\Core\Schemes\Color::get_type(),
-                                'value' => \Elementor\Core\Schemes\Color::COLOR_1,
-                            ],
+                            'global' => [
+								'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_PRIMARY,
+							],
                             'default' => '#a1a1a1',
                             'selectors' => [
                                 '{{WRAPPER}} .loader-ellips__dot' => 'background: {{VALUE}};',
