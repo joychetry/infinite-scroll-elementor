@@ -50,7 +50,7 @@ You can also get help from my website by [commenting in this post](https://joych
 
 == Changelog ==
 
-= 2.5 - 2024-01-17 =
+= 2.5 - 2025-01-17 =
 * Fix: Undefined variable warning for $ImgRatioFixButton
 * Fix: jQuery compatibility improvements
 * Update: Migrated from deprecated Elementor color schemes to new global system ([#8](https://github.com/joychetry/infinite-scroll-elementor/pull/25))
