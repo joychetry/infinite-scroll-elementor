@@ -6,7 +6,7 @@ Tags: infinite scroll, load more, pagination, paginate, scroll, infinite, infini
 Requires at least: 5.0
 Tested up to: 6.7.1
 Requires PHP: 5.6
-Stable tag: 2.5
+Stable tag: 2.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,36 @@ Infinite Scroll Elementor does not add any CSS to your website. It only adds few
 You can also get help from my website by [commenting in this post](https://joychetry.com/infinite-scroll-elementor/).
 
 == Changelog ==
+
+= 2.6 - 2025-02-18 =
+* Feature: Advanced Widget Targeting ([#9](https://github.com/joychetry/infinite-scroll-elementor/issues/6)) ([#10](https://github.com/joychetry/infinite-scroll-elementor/issues/11)) ([#11](https://github.com/joychetry/infinite-scroll-elementor/issues/12)) ([#12](https://github.com/joychetry/infinite-scroll-elementor/issues/13)) ([#13](https://github.com/joychetry/infinite-scroll-elementor/issues/21)) ([#14](https://github.com/joychetry/infinite-scroll-elementor/issues/23)) ([#15](https://github.com/joychetry/infinite-scroll-elementor/issues/24))
+  * New `button_target_widget_id` control for precise pagination
+  * Specify exact CSS ID/Class for targeted content loading
+  * Supports all pagination scenarios (Posts, Archive Posts, Products)
+
+* Feature: Enhanced Scroll Configuration
+  * Scroll Threshold Control: Customize distance from viewport bottom for content loading
+  * Element Scroll Customization: Specify custom scrollable container via CSS selector
+
+* Feature: Flexible History Management
+  * Three history update modes: Replace, Push, Disabled
+  * Optional page title update for new content
+
+* Improvement: Dynamic Content Handling
+  * MutationObserver implementation for dynamically loaded elements
+  * Robust image ratio fix using `querySelectorAll`
+
+* Improvement: Multi-Widget Compatibility
+  * Unique identifier generation to prevent widget conflicts
+  * Creates distinctive classes for each widget instance
+
+* Technical Update: Comprehensive Control Descriptions
+  * Added detailed explanations for new and existing controls
+  * Improved user understanding of configuration options
+
+* Compatibility: 
+  * Tested with WordPress 6.7.2, Elementor 3.27.6 and Elementor Pro 3.27.4
+  * Maintained backwards compatibility with existing implementations
 
 = 2.5 - 2025-01-17 =
 * Fix: Undefined variable warning for $ImgRatioFixButton

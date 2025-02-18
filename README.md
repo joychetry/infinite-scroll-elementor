@@ -2,9 +2,11 @@
 
 **Tags:** infinite scroll, load more, pagination, paginate, scroll, infinite, infinity, ajax, posts, products, elementor, woo-commerce\
 **Requires at least:** 5.0\
-**Tested up to:** 6.7.1\
+**Tested up to:** 6.7.2\
+**Elementor tested up to:** 3.27.6\
+**Elementor Pro tested up to:** 3.27.4\
 **Requires PHP:** 5.6\
-**Stable tag:** 2.5\
+**Stable tag:** 2.6\
 **License:** GPLv3\
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html
 

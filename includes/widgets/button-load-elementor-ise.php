@@ -95,7 +95,6 @@ class ISE_ButtonLoad extends Widget_Base
             [
             'label'       => __('Pagination For', 'infinite-scroll-elementor-td'),
             'type'        => \Elementor\Controls_Manager::SELECT,
-            'separator' => 'after',
             'default'     => 'elementor-pro-posts',
             'options'     => [
                 'elementor-pro-posts'            => __('Elementor Posts', 'infinite-scroll-elementor-td'),
@@ -108,6 +107,69 @@ class ISE_ButtonLoad extends Widget_Base
             ]
         ]
         );
+
+        $this->add_control(
+          'button_target_widget_id',
+          [
+              'label' => __('Target Widget', 'infinite-scroll-elementor-td'),
+              'type' => \Elementor\Controls_Manager::TEXT,
+              'default' => '',
+              'separator' => 'after',
+              'placeholder' => __('#my-posts, .my-posts', 'infinite-scroll-elementor-td'),
+              'description' => __('Enter CSS ID/Class of the target widget. Leave empty to target all widgets.', 'infinite-scroll-elementor-td'),
+              'condition' => [
+                  'ISEButton_register' => 'yes',
+                  'button_pagination_for_setting!' => 'ise-custom-selectors',
+              ]
+          ]
+      );
+    
+    $this->add_control(
+        'element_scroll',
+        [
+            'label' => __('Element Scroll', 'infinite-scroll-elementor-td'),
+            'type' => Controls_Manager::TEXT,
+            'placeholder' => __('#container, .scroll-container', 'infinite-scroll-elementor-td'),
+            'description' => __('Specify a CSS selector for a specific scrollable container. This is useful when you want infinite scroll to work within a specific div instead of the entire window.', 'infinite-scroll-elementor-td'),
+            'condition' => [
+                'ISEButton_register' => 'yes',
+            ]
+        ]
+    );
+    
+    $this->add_control(
+        'history_mode',
+        [
+            'label' => __('History Mode', 'infinite-scroll-elementor-td'),
+            'type' => Controls_Manager::SELECT,
+            'default' => '',
+            'options' => [
+                'replace' => __('Replace', 'infinite-scroll-elementor-td'),
+                'push' => __('Push', 'infinite-scroll-elementor-td'),
+                '' => __('Disabled', 'infinite-scroll-elementor-td'),
+            ],
+            'description' => __('Control how browser history is updated when loading new content. "Replace" updates the current URL, "Push" creates new history entries, "Disabled" does not modify browser history.', 'infinite-scroll-elementor-td'),
+            'condition' => [
+                'ISEButton_register' => 'yes',
+            ]
+        ]
+    );
+    
+    $this->add_control(
+        'history_title',
+        [
+            'label' => __('Update Page Title', 'infinite-scroll-elementor-td'),
+            'type' => Controls_Manager::SWITCHER,
+            'default' => 'yes',
+            'label_on' => __('Yes', 'infinite-scroll-elementor-td'),
+            'label_off' => __('No', 'infinite-scroll-elementor-td'),
+            'description' => __('Automatically update the browser page title when new content is loaded. This works only when History Mode is enabled.', 'infinite-scroll-elementor-td'),
+            'condition' => [
+                'ISEButton_register' => 'yes',
+                'history_mode!' => '',
+            ]
+        ]
+    );
     
         $this->add_control(
             'button_load_elementor_animation',
@@ -115,6 +177,7 @@ class ISE_ButtonLoad extends Widget_Base
                 'label' 		=> __('Show Loading Animation', 'infinite-scroll-elementor-td'),
                 'type'         => \Elementor\Controls_Manager::SWITCHER,
                 'default'      => 'yes',
+                'separator' => 'before',
                 'label_on'     => __('yes', 'infinite-scroll'),
                 'label_off'    => __('no', 'infinite-scroll'),
                 'condition' 	=> [
@@ -290,14 +353,7 @@ class ISE_ButtonLoad extends Widget_Base
         $buttonText = $settings['button_load_elementor_button_text'];
         $MissingThumbnail = $settings['missing_featured_image_fix'];
 
-        if ($settings['missing_featured_image_fix'] === 'yes') {
-            $ImgRatioFixButton = "$(window).scroll(function() {    
-            var scroll = $(window).scrollTop();
-            if (scroll >= 0) {
-              $('.elementor-post__thumbnail').addClass('elementor-fit-height');
-            }
-          });";
-        }
+        $unique_id = 'ise-' . $this->get_id(); // Get unique ID for this widget instance
         
         /* Removed <?php ISEButtoncolor() ?> */
 
@@ -364,7 +420,7 @@ class ISE_ButtonLoad extends Widget_Base
 				}
                
 			</style>
-			<div class="page-load-status">
+			<div class="page-load-status <?php echo $unique_id; ?>">
 			  <div class="loader-ellips infinite-scroll-request">
 				<span class="loader-ellips__dot"></span>
 				<span class="loader-ellips__dot"></span>
@@ -436,34 +492,60 @@ class ISE_ButtonLoad extends Widget_Base
                
 			</style>
 
-        <div class="page-load-status">
+<div class="page-load-status <?php echo $unique_id; ?>">
             <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
 		        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
 		        <p class="infinite-scroll-error"><?php echo $errorText ?></p>
 		    </div>
         <?php } ?>
-        <div class="vmBtn"><button class="view-more-button"><?php echo $buttonText ?></button></div>
+        <div class="vmBtn"><button class="view-more-button <?php echo $unique_id; ?>"><?php echo $buttonText ?></button></div>
             
         <script type="text/javascript">
-          function deferISEbutton(method) {
-            if (window.jQuery) {
-              method();
-            } else {
-              setTimeout(function() { deferISEbutton(method) }, 50);
+function deferISEbutton(method) {
+    if (window.jQuery) {
+        method();
+    } else {
+        setTimeout(function() { deferISEbutton(method) }, 50);
+    }
+}
+deferISEbutton(function() {
+    jQuery(document).ready(function($) {
+
+        function addFitHeightClass(target) {
+    <?php if ($settings['missing_featured_image_fix'] === 'yes'): ?>
+    (target || document).querySelectorAll('<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>div.elementor-post__thumbnail').forEach(div => {
+        div.classList.add('elementor-fit-height');
+    });
+    <?php endif; ?>
+}
+addFitHeightClass();
+
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+            <?php if ($settings['missing_featured_image_fix'] === 'yes'): ?>
+            if (node.nodeType === Node.ELEMENT_NODE && 
+                node.querySelector('<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>div.elementor-post__thumbnail')) {
+                addFitHeightClass(node);
             }
-          }
-          deferISEbutton(function() {
-            jQuery(document).ready(function($) {
-              <?php echo isset($ImgRatioFixButton) ? $ImgRatioFixButton : ''; ?>
-            $('.elementor-posts').infiniteScroll({
-              path: 'a.page-numbers.next',
-              append: '.elementor-post',
-              history: false ,
-              hideNav: 'nav.elementor-pagination',
-                status: '.page-load-status',
-                        button: '.view-more-button',
-                        scrollThreshold: false,
-            });
+            <?php endif; ?>
+        });
+    });
+});
+observer.observe(document.body, { childList: true, subtree: true });
+
+        $('<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>div.elementor-posts-container').infiniteScroll({
+    path: '<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>a.page-numbers.next',
+    append: '<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>article.elementor-post',
+    history: false,
+    hideNav: '<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>nav.elementor-pagination',
+    status: '.page-load-status.<?php echo $unique_id; ?>',
+    button: '.view-more-button.<?php echo $unique_id; ?>',
+    scrollThreshold: false,
+    elementScroll: <?php echo !empty($settings['element_scroll']) ? "'" . $settings['element_scroll'] . "'" : 'false'; ?>,
+    history: <?php echo !empty($settings['history_mode']) ? "'" . $settings['history_mode'] . "'" : 'false'; ?>,
+    historyTitle: <?php echo $settings['history_title'] === 'yes' ? 'true' : 'false'; ?>,
+});
               });
           });
         </script>
@@ -485,7 +567,7 @@ class ISE_ButtonLoad extends Widget_Base
 				}
 
 				.loader-ellips {
-                  font-size: 12px; /* change size here */
+          font-size: 12px; /* change size here */
 				  position: relative;
 				  width: 4em;
 				  height: 1em;
@@ -535,7 +617,7 @@ class ISE_ButtonLoad extends Widget_Base
                
 			</style>
   
-        <div class="page-load-status">
+        <div class="page-load-status <?php echo $unique_id; ?>">
           <div class="loader-ellips infinite-scroll-request">
             <span class="loader-ellips__dot"></span>
             <span class="loader-ellips__dot"></span>
@@ -606,35 +688,62 @@ class ISE_ButtonLoad extends Widget_Base
 				}
                
 			</style>           
-      <div class="page-load-status">
+      <div class="page-load-status <?php echo $unique_id; ?>">
         <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
         <p class="infinite-scroll-last"><?php echo $lastText ?></p>
         <p class="infinite-scroll-error"><?php echo $errorText ?></p>
       </div>
         <?php } ?>
     
-      <div class="vmBtn"><button class="view-more-button"><?php echo $buttonText ?></button></div>
+      <div class="vmBtn"><button class="view-more-button <?php echo $unique_id; ?>"><?php echo $buttonText ?></button></div>
 
       <script type="text/javascript">
-        function deferISEbutton(method) {
-          if (window.jQuery) {
-            method();
-          } else {
-            setTimeout(function() { deferISEbutton(method) }, 50);
-          }
-        }
-        deferISEbutton(function() {
-          jQuery(document).ready(function($) {
+function deferISEbutton(method) {
+    if (window.jQuery) {
+        method();
+    } else {
+        setTimeout(function() { deferISEbutton(method) }, 50);
+    }
+}
+deferISEbutton(function() {
+    jQuery(document).ready(function($) {
+
+        function addFitHeightClass(target) {
+    <?php if ($settings['missing_featured_image_fix'] === 'yes'): ?>
+    (target || document).querySelectorAll('<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>div.elementor-post__thumbnail').forEach(div => {
+        div.classList.add('elementor-fit-height');
+    });
+    <?php endif; ?>
+}
+addFitHeightClass();
+
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+            <?php if ($settings['missing_featured_image_fix'] === 'yes'): ?>
+            if (node.nodeType === Node.ELEMENT_NODE && 
+                node.querySelector('<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>div.elementor-post__thumbnail')) {
+                addFitHeightClass(node);
+            }
+            <?php endif; ?>
+        });
+    });
+});
+observer.observe(document.body, { childList: true, subtree: true });
+
             <?php echo isset($ImgRatioFixButton) ? $ImgRatioFixButton : ''; ?>
-          $('div.elementor-posts-container').infiniteScroll({
-            path: 'a.page-numbers.next',
-            append: 'article.elementor-post',
-            history: false ,
-            hideNav: 'nav.elementor-pagination',
-              status: '.page-load-status',
-                      button: '.view-more-button',
-                      scrollThreshold: false,
-          });
+            $('<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>div.elementor-posts-container').infiniteScroll({
+    path: '<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>a.page-numbers.next',
+    append: '<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>article.elementor-post',
+    history: false,
+    hideNav: '<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>nav.elementor-pagination',
+    status: '.page-load-status.<?php echo $unique_id; ?>',
+    button: '.view-more-button.<?php echo $unique_id; ?>',
+    scrollThreshold: false,
+    elementScroll: <?php echo !empty($settings['element_scroll']) ? "'" . $settings['element_scroll'] . "'" : 'false'; ?>,
+    history: <?php echo !empty($settings['history_mode']) ? "'" . $settings['history_mode'] . "'" : 'false'; ?>,
+    historyTitle: <?php echo $settings['history_title'] === 'yes' ? 'true' : 'false'; ?>,
+});
           });
       });
 </script>
@@ -704,7 +813,7 @@ class ISE_ButtonLoad extends Widget_Base
 				}
                
 			</style>
-			<div class="page-load-status">
+			<div class="page-load-status <?php echo $unique_id; ?>">
 			  <div class="loader-ellips infinite-scroll-request">
 				<span class="loader-ellips__dot"></span>
 				<span class="loader-ellips__dot"></span>
@@ -775,34 +884,61 @@ class ISE_ButtonLoad extends Widget_Base
 				}
                
 			</style>           
-      <div class="page-load-status">
+      <div class="page-load-status <?php echo $unique_id; ?>">
         <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
         <p class="infinite-scroll-last"><?php echo $lastText ?></p>
         <p class="infinite-scroll-error"><?php echo $errorText ?></p>
       </div>
   <?php } ?>
 
-  <div class="vmBtn"><button class="view-more-button"><?php echo $buttonText ?></button></div>
+  <div class="vmBtn"><button class="view-more-button <?php echo $unique_id; ?>"><?php echo $buttonText ?></button></div>
 
 		<script type="text/javascript">
-      function deferISEbutton(method) {
-          if (window.jQuery) {
-              method();
-          } else {
-              setTimeout(function() { deferISEbutton(method) }, 50);
-          }
-      }
-      deferISEbutton(function() {
-          jQuery(document).ready(function($) {
-				$('ul.products').infiniteScroll({
-					append: 'li.product',
-					path: 'a.next.page-numbers',
-					hideNav: 'nav.woocommerce-pagination',
-					history: false ,
-					status: '.page-load-status',
-                    button: '.view-more-button',
-                    scrollThreshold: false,
-				});
+function deferISEbutton(method) {
+    if (window.jQuery) {
+        method();
+    } else {
+        setTimeout(function() { deferISEbutton(method) }, 50);
+    }
+}
+deferISEbutton(function() {
+    jQuery(document).ready(function($) {
+
+        function addFitHeightClass(target) {
+    <?php if ($settings['missing_featured_image_fix'] === 'yes'): ?>
+    (target || document).querySelectorAll('<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>.attachment-woocommerce_thumbnail').forEach(div => {
+        div.classList.add('elementor-fit-height');
+    });
+    <?php endif; ?>
+}
+addFitHeightClass();
+
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+            <?php if ($settings['missing_featured_image_fix'] === 'yes'): ?>
+            if (node.nodeType === Node.ELEMENT_NODE && 
+                node.querySelector('<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>.attachment-woocommerce_thumbnail')) {
+                addFitHeightClass(node);
+            }
+            <?php endif; ?>
+        });
+    });
+});
+observer.observe(document.body, { childList: true, subtree: true });
+
+        $('<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>ul.products').infiniteScroll({
+    append: '<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>li.product',
+    path: '<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>a.next.page-numbers',
+    hideNav: '<?php echo !empty($settings["button_target_widget_id"]) ? $settings["button_target_widget_id"] . " " : ""; ?>nav.woocommerce-pagination',
+    history: false,
+    status: '.page-load-status.<?php echo $unique_id; ?>',
+    button: '.view-more-button.<?php echo $unique_id; ?>',
+    scrollThreshold: false,
+    elementScroll: <?php echo !empty($settings['element_scroll']) ? "'" . $settings['element_scroll'] . "'" : 'false'; ?>,
+    history: <?php echo !empty($settings['history_mode']) ? "'" . $settings['history_mode'] . "'" : 'false'; ?>,
+    historyTitle: <?php echo $settings['history_title'] === 'yes' ? 'true' : 'false'; ?>,
+});
           });
       });
 </script>
@@ -877,7 +1013,7 @@ class ISE_ButtonLoad extends Widget_Base
 				}
                
 			</style>
-			<div class="page-load-status">
+			<div class="page-load-status <?php echo $unique_id; ?>">
 			  <div class="loader-ellips infinite-scroll-request">
 				<span class="loader-ellips__dot"></span>
 				<span class="loader-ellips__dot"></span>
@@ -948,14 +1084,14 @@ class ISE_ButtonLoad extends Widget_Base
 				}
                
 			</style>
-      <div class="page-load-status">
+      <div class="page-load-status <?php echo $unique_id; ?>">
         <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
         <p class="infinite-scroll-last"><?php echo $lastText ?></p>
         <p class="infinite-scroll-error"><?php echo $errorText ?></p>
       </div>
          <?php } ?>
 
-      <div class="vmBtn"><button class="view-more-button"><?php echo $buttonText ?></button></div>
+      <div class="vmBtn"><button class="view-more-button <?php echo $unique_id; ?>"><?php echo $buttonText ?></button></div>
 
 		<script type="text/javascript">
       function deferISEbutton(method) {
@@ -972,9 +1108,12 @@ class ISE_ButtonLoad extends Widget_Base
 					path: '<?php echo $path_custom ?>',
 					hideNav: '<?php echo $hideNav_custom ?>',
 					history: false ,
-					status: '.page-load-status',
-                    button: '.view-more-button',
-                    scrollThreshold: false,
+					status: '.page-load-status.<?php echo $unique_id; ?>',
+          button: '.view-more-button.<?php echo $unique_id; ?>',
+          scrollThreshold: false,
+          elementScroll: <?php echo !empty($settings['element_scroll']) ? "'" . $settings['element_scroll'] . "'" : 'false'; ?>,
+          history: <?php echo !empty($settings['history_mode']) ? "'" . $settings['history_mode'] . "'" : 'false'; ?>,
+          historyTitle: <?php echo $settings['history_title'] === 'yes' ? 'true' : 'false'; ?>,
 				});
           });
       });
