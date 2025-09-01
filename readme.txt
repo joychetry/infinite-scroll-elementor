@@ -6,7 +6,7 @@ Tags: infinite scroll, load more, pagination, paginate, scroll, infinite, infini
 Requires at least: 5.0
 Tested up to: 6.7.1
 Requires PHP: 5.6
-Stable tag: 2.6
+Stable tag: 2.6.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,27 @@ Infinite Scroll Elementor does not add any CSS to your website. It only adds few
 You can also get help from my website by [commenting in this post](https://joychetry.com/infinite-scroll-elementor/).
 
 == Changelog ==
+
+= 2.6.1 - 2025-09-01 =
+* Fix: Elementor Backwards Compatibility - Resolved fatal error caused by deprecated `Elementor\Core\Schemes\Color` class
+  * Added comprehensive backwards compatibility helper for all Elementor versions
+  * Updated all color controls to use safe compatibility methods
+  * Implemented automatic detection of deprecated vs modern Elementor classes
+  * Added class existence checks to prevent fatal errors
+  * Created Elementor_Compatibility helper class with safe color control generation
+  * Updated widget files to use compatibility-safe color controls
+  * Implemented graceful fallback for deprecated Elementor features
+
+* Fix: Resolved SearchWP integration fatal errors related to deprecated Elementor classes
+* Fix: Fixed color control compatibility across different Elementor versions
+* Fix: Prevented fatal errors on full-page loads and search form submissions
+* Fix: Ensured plugin works with both legacy and modern Elementor installations
+* Feature: History Mode Configuration - Disabled History Mode by default in both widgets
+  * Improved user experience by preventing unexpected browser navigation changes
+  * Enhanced SEO compatibility for infinite scroll implementations
+  * Maintained user control with ability to enable History Mode when needed
+* Compatibility: Tested with Elementor 2.0.0 to 3.27.6 and Elementor Pro 3.27.4
+* Compatibility: Maintained backwards compatibility with existing implementations
 
 = 2.6 - 2025-02-18 =
 * Feature: Advanced Widget Targeting ([#9](https://github.com/joychetry/infinite-scroll-elementor/issues/6)) ([#10](https://github.com/joychetry/infinite-scroll-elementor/issues/11)) ([#11](https://github.com/joychetry/infinite-scroll-elementor/issues/12)) ([#12](https://github.com/joychetry/infinite-scroll-elementor/issues/13)) ([#13](https://github.com/joychetry/infinite-scroll-elementor/issues/21)) ([#14](https://github.com/joychetry/infinite-scroll-elementor/issues/23)) ([#15](https://github.com/joychetry/infinite-scroll-elementor/issues/24))

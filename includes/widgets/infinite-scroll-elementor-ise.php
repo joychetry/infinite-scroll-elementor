@@ -9,6 +9,7 @@ use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
+use InfiniteScrollElementorNameSpace\Elementor_Compatibility;
 
 if (!defined("ABSPATH")) {
     exit(); // Exit if accessed directly
@@ -181,11 +182,11 @@ $this->add_control("element_scroll", [
 $this->add_control("history_mode", [
   "label" => __("History Mode", "infinite-scroll-elementor-td"),
   "type" => Controls_Manager::SELECT,
-  "default" => "replace",
+  "default" => "",
   "options" => [
+	  "" => __("Disabled", "infinite-scroll-elementor-td"),
       "replace" => __("Replace", "infinite-scroll-elementor-td"),
       "push" => __("Push", "infinite-scroll-elementor-td"),
-      "" => __("Disabled", "infinite-scroll-elementor-td"),
   ],
   "description" => __("Control how browser history is updated. 'Replace' overwrites current URL, 'Push' creates new history entries.", "infinite-scroll-elementor-td"),
   "condition" => [
@@ -1362,21 +1363,19 @@ results.";
             ],
         ]);
 
-        $this->add_control("infinite_scroll_loader_color", [
-            "label" => __("Animation Color", "infinite-scroll-elementor-td"),
-            "separator" => "before",
-            "type" => Controls_Manager::COLOR,
-            "global" => [
-                "default" => Global_Colors::COLOR_PRIMARY,
-            ],
-            "default" => "#a1a1a1",
-            "selectors" => [
-                "{{WRAPPER}} .loader-ellips__dot" => "background: {{VALUE}};",
-            ],
-            "condition" => [
-                "infinite_scroll_elementor_loading_type" => "animation",
-            ],
-        ]);
+        $this->add_control("infinite_scroll_loader_color", Elementor_Compatibility::get_safe_color_control(
+            "Animation Color",
+            "#a1a1a1",
+            [
+                "separator" => "before",
+                "selectors" => [
+                    "{{WRAPPER}} .loader-ellips__dot" => "background: {{VALUE}};",
+                ],
+                "condition" => [
+                    "infinite_scroll_elementor_loading_type" => "animation",
+                ],
+            ]
+        ));
 
         $this->end_controls_section();
     }

@@ -1,6 +1,9 @@
 <?php
 namespace InfiniteScrollElementorNameSpace;
 
+// Include Elementor compatibility helper
+require_once(__DIR__ . '/elementor-compatibility.php');
+
 class Plugin
 {
     private static $_instance = null;

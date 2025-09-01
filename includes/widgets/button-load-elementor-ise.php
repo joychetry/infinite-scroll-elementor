@@ -8,6 +8,7 @@ use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
+use InfiniteScrollElementorNameSpace\Elementor_Compatibility;
 
 if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -144,9 +145,9 @@ class ISE_ButtonLoad extends Widget_Base
             'type' => Controls_Manager::SELECT,
             'default' => '',
             'options' => [
+                '' => __('Disabled', 'infinite-scroll-elementor-td'),
                 'replace' => __('Replace', 'infinite-scroll-elementor-td'),
                 'push' => __('Push', 'infinite-scroll-elementor-td'),
-                '' => __('Disabled', 'infinite-scroll-elementor-td'),
             ],
             'description' => __('Control how browser history is updated when loading new content. "Replace" updates the current URL, "Push" creates new history entries, "Disabled" does not modify browser history.', 'infinite-scroll-elementor-td'),
             'condition' => [
@@ -1221,24 +1222,28 @@ observer.observe(document.body, { childList: true, subtree: true });
         
         $this->add_control(
             'infinite_scroll_button_color',
-            [
-                                'label' 	=> __('Color', 'infinite-scroll-elementor-td'),
-                                'type' 		=> Controls_Manager::COLOR,                                
-                                'selectors' => [
-                                    '{{WRAPPER}} .view-more-button' => 'color: {{VALUE}};',
-                                ],
-                            ]
+            Elementor_Compatibility::get_safe_color_control(
+                'Color',
+                '#000000',
+                [
+                    'selectors' => [
+                        '{{WRAPPER}} .view-more-button' => 'color: {{VALUE}};',
+                    ],
+                ]
+            )
         );
         
         $this->add_control(
             'infinite_scroll_button_background_color',
-            [
-                                'label' 	=> __('Background Color', 'infinite-scroll-elementor-td'),
-                                'type' 		=> Controls_Manager::COLOR,
-                                'selectors' => [
-                                    '{{WRAPPER}} .view-more-button' => 'background-color: {{VALUE}};',
-                                ],
-                            ]
+            Elementor_Compatibility::get_safe_color_control(
+                'Background Color',
+                '#ffffff',
+                [
+                    'selectors' => [
+                        '{{WRAPPER}} .view-more-button' => 'background-color: {{VALUE}};',
+                    ],
+                ]
+            )
         );
         
         $this->end_controls_tab();
@@ -1249,38 +1254,44 @@ observer.observe(document.body, { childList: true, subtree: true });
         
         $this->add_control(
             'infinite_scroll_button_color_hover',
-            [
-                                'label' 	=> __('Color', 'infinite-scroll-elementor-td'),
-                                'type' 		=> Controls_Manager::COLOR,
-                                'selectors' => [
-                                    '{{WRAPPER}} .view-more-button:hover' => 'color: {{VALUE}};',
-                                ],
-                            ]
+            Elementor_Compatibility::get_safe_color_control(
+                'Color',
+                '#000000',
+                [
+                    'selectors' => [
+                        '{{WRAPPER}} .view-more-button:hover' => 'color: {{VALUE}};',
+                    ],
+                ]
+            )
         );
         
         $this->add_control(
             'infinite_scroll_button_background_color_hover',
-            [
-                                'label' 	=> __('Background Color', 'infinite-scroll-elementor-td'),
-                                'type' 		=> Controls_Manager::COLOR,
-                                'selectors' => [
-                                    '{{WRAPPER}} .view-more-button:hover' => 'background-color: {{VALUE}};',
-                                ],
-                            ]
+            Elementor_Compatibility::get_safe_color_control(
+                'Background Color',
+                '#f0f0f0',
+                [
+                    'selectors' => [
+                        '{{WRAPPER}} .view-more-button:hover' => 'background-color: {{VALUE}};',
+                    ],
+                ]
+            )
         );
         
         $this->add_control(
             'infinite_scroll_button_hover_border_color',
-            [
-                'label' => __('Border Color', 'infinite-scroll-elementor-td'),
-                'type' => Controls_Manager::COLOR,
-                'condition' => [
-                    'border_border!' => '',
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .view-more-button:hover, {{WRAPPER}} .view-more-button:focus' => 'border-color: {{VALUE}};',
-                ],
-            ]
+            Elementor_Compatibility::get_safe_color_control(
+                'Border Color',
+                '#cccccc',
+                [
+                    'condition' => [
+                        'border_border!' => '',
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .view-more-button:hover, {{WRAPPER}} .view-more-button:focus' => 'border-color: {{VALUE}};',
+                    ],
+                ]
+            )
         );
         
         $this->end_controls_tab();
@@ -1380,18 +1391,19 @@ observer.observe(document.body, { childList: true, subtree: true });
         
         $this->add_control(
             'infinite_scroll_button_loader_color',
-            [
-                            'label' 	=> __('Animation Color', 'infinite-scroll-elementor-td'),
-                            'separator' => 'before',
-                            'type' 		=> Controls_Manager::COLOR,
-                            'default' => '#a1a1a1',
-                            'selectors' => [
-                                '{{WRAPPER}} .loader-ellips__dot' => 'background: {{VALUE}};',
-                            ],
-                            'condition' => [
-                                'button_load_elementor_loading_type' => 'animation',
-                            ]
-                        ]
+            Elementor_Compatibility::get_safe_color_control(
+                'Animation Color',
+                '#a1a1a1',
+                [
+                    'separator' => 'before',
+                    'selectors' => [
+                        '{{WRAPPER}} .loader-ellips__dot' => 'background: {{VALUE}};',
+                    ],
+                    'condition' => [
+                        'button_load_elementor_loading_type' => 'animation',
+                    ]
+                ]
+            )
         );
         
         $this->end_controls_section();
