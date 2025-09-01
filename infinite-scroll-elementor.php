@@ -116,14 +116,13 @@ new infinite_scroll_elementor_Final();
 
 // Check for updates
 require 'plugin-update-checker/plugin-update-checker.php';
-$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+use YahnisElsts\PluginUpdateChecker\v5p6\PucFactory;
+
+$myUpdateChecker = PucFactory::buildUpdateChecker(
     'https://github.com/joychetry/infinite-scroll-elementor',
     __FILE__,
     'infinite-scroll-elementor'
 );
-
-//Optional: If you're using a private repository, specify the access token like this:
-//$myUpdateChecker->setAuthentication('Add_Code');
 
 //Optional: Set the branch that contains the stable release.
 $myUpdateChecker->setBranch('master');

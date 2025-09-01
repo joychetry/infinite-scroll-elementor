@@ -4,7 +4,7 @@ Contributors: joychetry
 Donate link: https://www.buymeacoffee.com/joychetry/
 Tags: infinite scroll, load more, pagination, paginate, scroll, infinite, infinity, ajax, posts, products, elementor, woocommerce, facetwp, jetsmartfilters
 Requires at least: 5.0
-Tested up to: 6.7.1
+Tested up to: 6.7.2
 Requires PHP: 5.6
 Stable tag: 2.6.1
 License: GPLv3
@@ -70,6 +70,13 @@ You can also get help from my website by [commenting in this post](https://joych
   * Maintained user control with ability to enable History Mode when needed
 * Compatibility: Tested with Elementor 2.0.0 to 3.27.6 and Elementor Pro 3.27.4
 * Compatibility: Maintained backwards compatibility with existing implementations
+
+* Update: Plugin Update Checker - Upgraded from v4.11 to v5.6 (4-year upgrade)
+  * Added WordPress 5.5+ auto-updates integration for better user experience
+  * Improved ZIP handling for more reliable plugin updates
+  * Enhanced security with 4+ years of accumulated patches
+  * Added broader internationalization support
+  * Better Debug Bar integration for debugging capabilities
 
 = 2.6 - 2025-02-18 =
 * Feature: Advanced Widget Targeting ([#9](https://github.com/joychetry/infinite-scroll-elementor/issues/6)) ([#10](https://github.com/joychetry/infinite-scroll-elementor/issues/11)) ([#11](https://github.com/joychetry/infinite-scroll-elementor/issues/12)) ([#12](https://github.com/joychetry/infinite-scroll-elementor/issues/13)) ([#13](https://github.com/joychetry/infinite-scroll-elementor/issues/21)) ([#14](https://github.com/joychetry/infinite-scroll-elementor/issues/23)) ([#15](https://github.com/joychetry/infinite-scroll-elementor/issues/24))
